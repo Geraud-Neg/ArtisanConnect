@@ -1,0 +1,60 @@
+/* Base styles not covered by Tailwind */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: theme('colors.background');
+}
+
+/* Transitions */
+.transition-smooth {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Custom Scrollbar for better aesthetics */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: theme('colors.gray.300');
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: theme('colors.primary.DEFAULT');
+}
+
+/* Forms */
+.input-field {
+    @apply w-full px-4 py-3 rounded-card border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-smooth;
+}
+
+.btn-primary {
+    @apply bg-primary hover:bg-primary-dark text-white font-medium py-3 px-6 rounded-btn transition-smooth transform hover:-translate-y-1 shadow-card hover:shadow-hover;
+}
+
+.btn-secondary {
+    @apply bg-secondary hover:bg-secondary-dark text-white font-medium py-3 px-6 rounded-btn transition-smooth transform hover:-translate-y-1 shadow-card hover:shadow-hover;
+}
+
+.btn-outline {
+    @apply border-2 border-primary text-primary hover:bg-primary hover:text-white font-medium py-3 px-6 rounded-btn transition-smooth;
+}
+
+/* Floating animation */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.animate-float {
+    animation: float 4s ease-in-out infinite;
+}

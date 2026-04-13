@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de bord Artisan - ArtisanConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/tailwind-config.js"></script>
+    <style type="text/tailwindcss">
+        html { scroll-behavior: smooth; }
+        body { background-color: theme('colors.background'); }
+        .transition-smooth { transition: all 0.3s ease-in-out; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: theme('colors.gray.300'); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: theme('colors.primary.DEFAULT'); }
+        .input-field { @apply w-full px-4 py-3 rounded-card border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-smooth; }
+        .btn-primary { @apply bg-primary hover:bg-primary-dark text-white font-medium py-3 px-6 rounded-btn transition-smooth transform hover:-translate-y-1 shadow-card hover:shadow-hover; }
+        .btn-secondary { @apply bg-secondary hover:bg-secondary-dark text-white font-medium py-3 px-6 rounded-btn transition-smooth transform hover:-translate-y-1 shadow-card hover:shadow-hover; }
+        .btn-outline { @apply border-2 border-primary text-primary hover:bg-primary hover:text-white font-medium py-3 px-6 rounded-btn transition-smooth; }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        .animate-float { animation: float 4s ease-in-out infinite; }
+        .nav-item.active {
+            @apply bg-primary text-white;
+        }
+        .nav-item {
+            @apply flex items-center px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-100 transition-smooth font-medium;
+        }
+    </style>
+</head>
+<body class="font-sans text-text antialiased bg-gray-50 h-screen flex overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white border-r border-gray-200 hidden md:flex flex-col flex-shrink-0 relative z-20">
+        <div class="h-20 flex items-center px-6 border-b border-gray-200">
+            <span class="text-primary text-xl font-bold font-poppins"><i class="fa-solid fa-hammer mr-2 text-secondary"></i>ArtisanConnect</span>
+        </div>
+        
+        <div class="p-4 flex-1 overflow-y-auto space-y-2">
+            <a href="#" class="nav-item active">
+                <i class="fa-solid fa-shapes w-6 text-center mr-2"></i> Tableau de bord
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-regular fa-calendar-check w-6 text-center mr-2"></i> Réservations
+                <span class="ml-auto bg-red-100 text-red-600 py-0.5 px-2 rounded-full text-xs font-bold">2</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-wallet w-6 text-center mr-2"></i> Portefeuille
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-regular fa-message w-6 text-center mr-2"></i> Messages
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-star-half-stroke w-6 text-center mr-2"></i> Mes Avis
+            </a>
+            
+            <hr class="border-gray-200 my-4">
+            <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider px-4 mb-2">Paramètres</h4>
+            
+            <a href="dashboard-edit-profile.html" class="nav-item">
+                <i class="fa-solid fa-gear w-6 text-center mr-2"></i> Gérer mon Profil
+            </a>
+            <a href="profile-artisan.html" class="nav-item">
+                <i class="fa-regular fa-user w-6 text-center mr-2"></i> Voir Profil Public
+            </a>
+        </div>
+        
+        <div class="p-4 border-t border-gray-200">
+            <a href="index.html" class="nav-item hover:text-red-500 hover:bg-red-50">
+                <i class="fa-solid fa-arrow-right-from-bracket w-6 text-center mr-2"></i> Déconnexion
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content wrapper -->
+    <div class="flex-1 flex flex-col h-screen overflow-hidden">
+        
+        <!-- Top Navbar -->
+        <header class="h-20 bg-white border-b border-gray-200 flex items-center justify-between px-4 sm:px-6 z-10">
+            <div class="flex items-center">
+                <button class="md:hidden text-gray-500 focus:outline-none mr-4">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <div class="relative hidden sm:block">
+                    <i class="fa-solid fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    <input type="text" placeholder="Rechercher une réservation..." class="pl-10 pr-4 py-2 border border-gray-200 rounded-full focus:outline-none focus:border-primary text-sm w-64 bg-gray-50 focus:bg-white transition-smooth">
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-6">
+                <button class="relative text-gray-500 hover:text-primary transition-smooth">
+                    <i class="fa-regular fa-bell text-xl"></i>
+                    <span class="absolute top-0 right-0 -mt-1 -mr-1 bg-red-500 w-2.5 h-2.5 rounded-full border-2 border-white"></span>
+                </button>
+                
+                <div class="flex items-center space-x-3 cursor-pointer pl-4 border-l border-gray-200">
+                    <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Avatar" class="w-10 h-10 rounded-full object-cover border border-gray-200 p-0.5">
+                    <div class="hidden sm:block text-sm">
+                        <p class="font-bold text-gray-900">Marc Dubois</p>
+                        <p class="text-xs text-green-500 font-medium whitespace-nowrap"><i class="fa-solid fa-circle text-[8px] mr-1 relative -top-[1px]"></i>En ligne / Dispo</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page Content -->
+        <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 p-4 sm:p-6 lg:p-8">
+            
+            <h1 class="text-2xl font-bold font-poppins text-gray-900 mb-6">Bonjour Marc 👋</h1>
+
+            <!-- KPIs -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <!-- Card 1 -->
+                <div class="bg-white rounded-card p-6 border border-gray-100 shadow-sm">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 bg-blue-50 text-primary rounded-lg flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-calendar-check"></i>
+                        </div>
+                        <span class="text-sm font-bold text-green-500 bg-green-50 px-2 py-1 rounded">+3 ce mois</span>
+                    </div>
+                    <h3 class="text-gray-500 text-sm font-medium">Prestations à venir</h3>
+                    <p class="text-2xl font-bold text-gray-900">8</p>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="bg-white rounded-card p-6 border border-gray-100 shadow-sm">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 bg-green-50 text-green-500 rounded-lg flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
+                        <span class="text-sm font-bold text-green-500 bg-green-50 px-2 py-1 rounded">+15% vs le mois passé</span>
+                    </div>
+                    <h3 class="text-gray-500 text-sm font-medium">Gains mensuels</h3>
+                    <p class="text-2xl font-bold text-gray-900">325 500 CFA</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white rounded-card p-6 border border-gray-100 shadow-sm">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 bg-yellow-50 text-yellow-500 rounded-lg flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <span class="text-sm font-bold text-gray-400 px-2 py-1">Sur 128 avis</span>
+                    </div>
+                    <h3 class="text-gray-500 text-sm font-medium">Note moyenne</h3>
+                    <p class="text-2xl font-bold text-gray-900">4.9 <span class="text-sm font-normal text-gray-400">/ 5</span></p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="bg-white rounded-card p-6 border border-gray-100 shadow-sm">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 bg-orange-50 text-secondary rounded-lg flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-eye"></i>
+                        </div>
+                        <span class="text-sm font-bold text-green-500 bg-green-50 px-2 py-1 rounded">+42 vues</span>
+                    </div>
+                    <h3 class="text-gray-500 text-sm font-medium">Vues du profil (7j)</h3>
+                    <p class="text-2xl font-bold text-gray-900">314</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Réservations Récentes list -->
+                <div class="lg:col-span-2 bg-white border border-gray-100 rounded-card shadow-sm overflow-hidden">
+                    <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
+                        <h2 class="text-lg font-bold text-gray-900 font-poppins">Réservations récentes</h2>
+                        <a href="#" class="text-sm text-primary font-medium hover:underline">Voir tout</a>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider">
+                                    <th class="px-6 py-4 font-medium">Client</th>
+                                    <th class="px-6 py-4 font-medium">Service</th>
+                                    <th class="px-6 py-4 font-medium">Date & Heure</th>
+                                    <th class="px-6 py-4 font-medium">Statut</th>
+                                    <th class="px-6 py-4 font-medium text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm">
+                                <!-- Row 1 - Pending Validation -->
+                                <tr class="border-b border-gray-100 hover:bg-gray-50 transition-smooth">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center">
+                                            <div class="w-8 h-8 rounded-full bg-blue-100 text-primary flex items-center justify-center font-bold text-xs mr-3">JD</div>
+                                            <div>
+                                                <p class="font-bold text-gray-900">Julien Decla</p>
+                                                <p class="text-xs text-gray-500">+229 01 02 03 04</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-gray-700">Dépannage express</td>
+                                    <td class="px-6 py-4">
+                                        <p class="font-medium text-gray-900">Demain</p>
+                                        <p class="text-xs text-gray-500">14:00 - 15:00</p>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-800">
+                                            À valider
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 text-right space-x-2">
+                                        <button class="text-green-500 hover:text-green-700 p-1 bg-green-50 rounded" title="Accepter"><i class="fa-solid fa-check"></i></button>
+                                        <button class="text-red-500 hover:text-red-700 p-1 bg-red-50 rounded" title="Refuser"><i class="fa-solid fa-times"></i></button>
+                                    </td>
+                                </tr>
+                                
+                                <!-- Row 2 - Confirmed -->
+                                <tr class="border-b border-gray-100 hover:bg-gray-50 transition-smooth">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center">
+                                            <div class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-xs mr-3">SA</div>
+                                            <div>
+                                                <p class="font-bold text-gray-900">Sara Ali</p>
+                                                <p class="text-xs text-gray-500">Haie vive, Cotonou</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-gray-700">Installation chauffe-eau</td>
+                                    <td class="px-6 py-4">
+                                        <p class="font-medium text-gray-900">12 Juin 2026</p>
+                                        <p class="text-xs text-gray-500">09:00 - 12:00</p>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800">
+                                            Confirmée
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 text-right">
+                                        <button class="text-primary hover:text-primary-dark p-1" title="Voir infos"><i class="fa-solid fa-eye"></i></button>
+                                    </td>
+                                </tr>
+
+                                <!-- Row 3 - Completed -->
+                                <tr class="hover:bg-gray-50 transition-smooth">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center">
+                                            <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center font-bold text-xs mr-3">FM</div>
+                                            <div>
+                                                <p class="font-bold text-gray-900">Franck M.</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-gray-700">Fuite tuyauterie</td>
+                                    <td class="px-6 py-4">
+                                        <p class="font-medium text-gray-900">Il y a 2 jours</p>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-600">
+                                            Réalisée
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 text-right">
+                                        <span class="text-xs text-gray-500 font-bold">Payé (+20k)</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Right Column Widgets -->
+                <div class="space-y-6">
+                    <!-- Withdrawal Request -->
+                    <div class="bg-gradient-to-br from-primary to-primary-dark rounded-card p-6 text-white shadow-md relative overflow-hidden">
+                        <i class="fa-solid fa-wallet absolute -bottom-4 -right-4 text-white opacity-10 text-8xl"></i>
+                        <h3 class="text-sm font-medium mb-1 opacity-80">Solde disponible</h3>
+                        <p class="text-3xl font-bold font-poppins mb-6">45 000 <span class="text-lg font-normal">FCFA</span></p>
+                        <button class="w-full bg-white text-primary font-bold py-2.5 rounded-lg hover:bg-gray-50 transition-smooth text-sm shadow-sm">
+                            Retirer vers Mobile Money
+                        </button>
+                    </div>
+
+                    <!-- Setup Completeness -->
+                    <div class="bg-white border border-gray-100 rounded-card p-6 shadow-sm">
+                        <h3 class="font-bold text-gray-900 mb-4 font-poppins">Complétez votre profil</h3>
+                        <div class="mb-2 flex justify-between text-xs font-medium">
+                            <span class="text-primary">80% complété</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2 mb-6">
+                            <div class="bg-primary h-2 rounded-full" style="width: 80%"></div>
+                        </div>
+                        
+                        <ul class="space-y-3 text-sm">
+                            <li class="flex items-center text-gray-500"><i class="fa-solid fa-check-circle text-green-500 mr-2"></i> Informations de base</li>
+                            <li class="flex items-center text-gray-500"><i class="fa-solid fa-check-circle text-green-500 mr-2"></i> Documents d'identité</li>
+                            <li class="flex items-center text-gray-700 font-medium cursor-pointer hover:text-secondary group">
+                                <i class="fa-regular fa-circle mr-2 group-hover:text-secondary"></i> Ajouter des photos au portfolio (0/5)
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

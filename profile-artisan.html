@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Artisan - Marc Dubois</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/tailwind-config.js"></script>
+    <style type="text/tailwindcss">
+        html { scroll-behavior: smooth; }
+        body { background-color: theme('colors.background'); }
+        .transition-smooth { transition: all 0.3s ease-in-out; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: theme('colors.gray.300'); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: theme('colors.primary.DEFAULT'); }
+        .input-field { @apply w-full px-4 py-3 rounded-card border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-smooth; }
+        .btn-primary { @apply bg-primary hover:bg-primary-dark text-white font-medium py-3 px-6 rounded-btn transition-smooth transform hover:-translate-y-1 shadow-card hover:shadow-hover; }
+        .btn-secondary { @apply bg-secondary hover:bg-secondary-dark text-white font-medium py-3 px-6 rounded-btn transition-smooth transform hover:-translate-y-1 shadow-card hover:shadow-hover; }
+        .btn-outline { @apply border-2 border-primary text-primary hover:bg-primary hover:text-white font-medium py-3 px-6 rounded-btn transition-smooth; }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        .animate-float { animation: float 4s ease-in-out infinite; }
+    </style>
+</head>
+<body class="font-sans text-text antialiased bg-background">
+
+    <!-- Navbar Minimal -->
+    <nav class="w-full bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="index.html" class="flex-shrink-0 flex items-center cursor-pointer">
+                    <i class="fa-solid fa-arrow-left text-gray-500 hover:text-primary mr-4 text-lg"></i>
+                    <span class="text-primary text-xl font-bold font-poppins"><i class="fa-solid fa-hammer mr-2 text-secondary"></i>ArtisanConnect</span>
+                </a>
+                <div class="flex items-center space-x-4">
+                    <button class="text-gray-500 hover:text-primary"><i class="fa-solid fa-share-nodes"></i></button>
+                    <button class="text-gray-500 hover:text-red-500"><i class="fa-regular fa-heart"></i></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Banner & Header -->
+    <div class="relative bg-white border-b border-gray-200">
+        <!-- Cover Photo -->
+        <div class="h-48 md:h-64 lg:h-80 w-full overflow-hidden relative">
+            <img src="https://images.unsplash.com/photo-1540569014015-19a7be504e3a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Cover" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Profile Info block -->
+            <div class="relative flex flex-col md:flex-row -mt-16 md:-mt-24 pb-8">
+                <!-- Avatar -->
+                <div class="relative z-10 w-32 h-32 md:w-48 md:h-48 bg-white p-1.5 rounded-full shadow-lg shrink-0">
+                    <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Marc Dubois" class="w-full h-full rounded-full object-cover">
+                    <!-- Badge Verified -->
+                    <div class="absolute bottom-2 right-2 md:bottom-4 md:right-4 bg-green-500 text-white w-8 h-8 rounded-full flex items-center justify-center border-2 border-white shadow-sm" title="Profil vérifié">
+                        <i class="fa-solid fa-check text-sm"></i>
+                    </div>
+                </div>
+
+                <!-- Basic details -->
+                <div class="mt-4 md:mt-28 md:ml-6 flex-1 flex flex-col md:flex-row justify-between items-start md:items-end">
+                    <div>
+                        <h1 class="text-3xl font-poppins font-bold text-gray-900 leading-tight">Marc Dubois</h1>
+                        <p class="text-primary font-medium text-lg mb-2">Plombier Chauffagiste</p>
+                        
+                        <div class="flex flex-wrap text-sm text-gray-600 gap-y-2 gap-x-4 mb-2">
+                            <span class="flex items-center bg-gray-100 px-3 py-1 rounded-full text-xs font-bold"><i class="fa-solid fa-location-dot text-primary mr-1.5"></i> Intervient : Cotonou, Calavi, Porto-Novo</span>
+                            <span class="flex items-center"><i class="fa-solid fa-briefcase text-gray-400 mr-1.5"></i> 8 ans d'expérience</span>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="flex text-yellow-400 text-sm mr-2">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <span class="font-bold text-gray-900 mr-1">4.9 / 5</span>
+                            <span class="text-gray-500 text-sm underline cursor-pointer hover:text-primary">(128 avis certifiés)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 md:mt-0 w-full md:w-auto flex md:block gap-2">
+                        <!-- Desktop Book Button, hidden on mobile since it's sticky below -->
+                        <a href="booking.html" class="hidden md:inline-flex btn-primary items-center shadow-lg">
+                            <i class="fa-regular fa-calendar text-lg mr-2"></i> Réserver une prestation
+                        </a>
+                        <button class="md:hidden flex-1 btn-outline py-2"><i class="fa-solid fa-envelope mr-1"></i> Message</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Profile Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            
+            <!-- Left Column: Details -->
+            <div class="w-full lg:w-2/3 space-y-8">
+                
+                <!-- About -->
+                <section class="bg-white rounded-card shadow-sm border border-gray-100 p-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-4 font-poppins">À propos de moi</h2>
+                    <p class="text-gray-600 leading-relaxed text-sm lg:text-base">
+                        Bonjour ! Je suis Marc, plombier chauffagiste passionné. Avec plus de 8 ans d'expérience, j'interviens rapidement pour tous vos dépannages d'urgence, installations de sanitaires ou rénovations de salle de bain.
+                        Je mets un point d'honneur à fournir un travail soigné, respectueux des normes de sécurité, et au juste prix. Ma priorité est votre satisfaction.
+                    </p>
+                    <div class="mt-6 flex gap-4">
+                        <div class="bg-blue-50 text-primary px-3 py-2 rounded-md text-sm font-semibold border border-blue-100 hidden sm:flex items-center">
+                            <i class="fa-solid fa-medal mr-2"></i> Diplômé d'État
+                        </div>
+                        <div class="bg-green-50 text-green-700 px-3 py-2 rounded-md text-sm font-semibold border border-green-100 flex items-center">
+                            <i class="fa-solid fa-shield-halved mr-2"></i> Assurance Pro Garantie
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Services et Tarifs -->
+                <section class="bg-white rounded-card shadow-sm border border-gray-100 p-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-6 font-poppins">Mes prestations principales</h2>
+                    
+                    <div class="space-y-4">
+                        <!-- Service 1 -->
+                        <div class="flex justify-between items-center pb-4 border-b border-gray-100">
+                            <div>
+                                <h4 class="font-bold text-gray-800">Dépannage plomberie express</h4>
+                                <p class="text-sm text-gray-500 mt-1">Recherche et réparation de fuite, dégorgement d'évier...</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="block font-bold text-secondary text-lg">20 000 FCFA</span>
+                                <span class="text-xs text-gray-400">/ heure</span>
+                            </div>
+                        </div>
+
+                        <!-- Service 2 -->
+                        <div class="flex justify-between items-center pb-4 border-b border-gray-100">
+                            <div>
+                                <h4 class="font-bold text-gray-800">Installation chauffe-eau</h4>
+                                <p class="text-sm text-gray-500 mt-1">Pose et raccordement, mise en service et tests de sécurité.</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="block font-bold text-gray-900 text-lg">À partir de 45 000 FCFA</span>
+                                <span class="text-xs text-gray-400">Forfait intervention</span>
+                            </div>
+                        </div>
+
+                        <!-- Service 3 -->
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h4 class="font-bold text-gray-800">Rénovation complète salle de bain</h4>
+                                <p class="text-sm text-gray-500 mt-1">Étude, dépose ancienne installation et pose des nouveaux équipements.</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="bg-orange-100 text-secondary px-3 py-1 text-sm font-bold rounded-full">Sur devis</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Portfolio -->
+                <section class="bg-white rounded-card shadow-sm border border-gray-100 p-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-4 font-poppins">Réalisations récentes (Portfolio)</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="group cursor-pointer">
+                            <div class="overflow-hidden rounded-lg shadow-sm mb-2">
+                                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Réalisation 1" class="w-full h-40 object-cover group-hover:scale-105 transition-smooth duration-300">
+                            </div>
+                            <h4 class="font-bold text-gray-900 text-sm group-hover:text-primary transition-smooth">Rénovation salle de bain</h4>
+                            <p class="text-xs text-gray-500 line-clamp-2 mt-1">Pose de faïence et installation d'une vasque moderne avec robinetterie encastrée.</p>
+                        </div>
+                        <div class="group cursor-pointer">
+                            <div class="overflow-hidden rounded-lg shadow-sm mb-2">
+                                <img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Réalisation 2" class="w-full h-40 object-cover group-hover:scale-105 transition-smooth duration-300">
+                            </div>
+                            <h4 class="font-bold text-gray-900 text-sm group-hover:text-primary transition-smooth">Installation chauffe-eau</h4>
+                            <p class="text-xs text-gray-500 line-clamp-2 mt-1">Remplacement d'un ancien ballon par un modèle thermodynamique économique.</p>
+                        </div>
+                        <div class="group cursor-pointer">
+                            <div class="overflow-hidden rounded-lg shadow-sm mb-2">
+                                <img src="https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Réalisation 3" class="w-full h-40 object-cover group-hover:scale-105 transition-smooth duration-300">
+                            </div>
+                            <h4 class="font-bold text-gray-900 text-sm group-hover:text-primary transition-smooth">Dépannage tuyauterie</h4>
+                            <p class="text-xs text-gray-500 line-clamp-2 mt-1">Recherche et réparation d'une fuite encastrée sous carrelage. Remise en état.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Reviews -->
+                <section class="bg-white rounded-card shadow-sm border border-gray-100 p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl font-bold text-gray-900 font-poppins">Avis Clients (128)</h2>
+                        <div class="text-right">
+                            <span class="text-2xl font-bold text-gray-900">4.9</span>
+                            <span class="text-gray-500">/ 5</span>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <!-- Review 1 -->
+                        <div class="border-b border-gray-50 pb-6">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center font-bold text-gray-600 mr-3">SB</div>
+                                    <div>
+                                        <h5 class="font-bold text-sm text-gray-900">Sophie B.</h5>
+                                        <span class="text-xs text-gray-500">Il y a 3 jours</span>
+                                    </div>
+                                </div>
+                                <div class="flex text-yellow-400 text-xs">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 text-sm mt-2">"Super intervention ! Marc est arrivé à l'heure, a identifié la fuite rapidement et a réparé le tout proprement. Facture conforme au prix annoncé. Je recommande les yeux fermés."</p>
+                        </div>
+
+                        <!-- Review 2 -->
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center font-bold text-gray-600 mr-3">AM</div>
+                                    <div>
+                                        <h5 class="font-bold text-sm text-gray-900">Armand M.</h5>
+                                        <span class="text-xs text-gray-500">Il y a 2 semaines</span>
+                                    </div>
+                                </div>
+                                <div class="flex text-yellow-400 text-xs">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 text-sm mt-2">"Très professionnel. Installation de ma cabine de douche parfaite. Un petit retard le 2e jour, mais il m'a prévenu bien à l'avance."</p>
+                            
+                            <!-- Artisan reply -->
+                            <div class="bg-gray-50 p-3 rounded-lg mt-3 ml-12 border-l-2 border-primary">
+                                <p class="text-xs font-bold text-gray-800 mb-1">Marc Dubois a répondu :</p>
+                                <p class="text-xs text-gray-600">Merci Armand pour votre retour ! C'était un plaisir de travailler sur votre salle de bain. Désolé encore pour le retard causé par la circulation ce jour-là.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full text-center text-primary font-semibold mt-6 text-sm hover:underline">Voir les 126 autres avis</button>
+                </section>
+            </div>
+
+            <!-- Right Column: Sticky Booking Widget -->
+            <div class="w-full lg:w-1/3">
+                <div class="bg-white rounded-card shadow-lg border border-gray-100 p-6 sticky top-24">
+                    <h3 class="text-lg font-bold text-gray-900 mb-6 font-poppins">Réserver une intervention</h3>
+                    
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Quand avez-vous besoin du service ?</label>
+                        <select class="w-full border border-gray-200 rounded-md py-3 px-4 focus:ring-1 focus:ring-primary focus:border-primary text-gray-700 appearance-none bg-white">
+                            <option>Dès que possible (Urgence)</option>
+                            <option>Dans les 48 heures</option>
+                            <option selected>Sélectionner une date précise</option>
+                        </select>
+                    </div>
+
+                    <!-- Mini Calendar mock -->
+                    <div class="grid grid-cols-7 gap-1 mb-4 text-center text-xs">
+                        <div class="text-gray-400 font-medium">L</div><div class="text-gray-400 font-medium">M</div><div class="text-gray-400 font-medium">M</div><div class="text-gray-400 font-medium">J</div><div class="text-gray-400 font-medium">V</div><div class="text-gray-400 font-medium">S</div><div class="text-gray-400 font-medium">D</div>
+                        
+                        <!-- Dates -->
+                        <div class="text-gray-300 py-1">29</div><div class="text-gray-300 py-1">30</div>
+                        <div class="py-1 cursor-pointer hover:bg-gray-100 rounded">1</div>
+                        <div class="py-1 cursor-pointer hover:bg-gray-100 rounded">2</div>
+                        <div class="py-1 bg-red-50 text-red-400 line-through rounded cursor-not-allowed" title="Non disponible">3</div>
+                        <div class="py-1 bg-primary text-white font-bold rounded shadow-sm shadow-blue-200">4</div>
+                        <div class="py-1 cursor-pointer hover:bg-gray-100 rounded">5</div>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Quel est votre besoin ?</label>
+                        <textarea class="w-full border border-gray-200 rounded-md p-3 focus:ring-1 focus:ring-primary focus:border-primary text-sm text-gray-700" rows="3" placeholder="Décrivez brièvement le problème (ex: Fuite sous évier, tuyau apparent)"></textarea>
+                    </div>
+
+                    <a href="booking.html" class="btn-primary w-full block text-center py-4 text-lg">
+                        Continuer ma réservation
+                    </a>
+                    <p class="text-xs text-center text-gray-400 mt-3"><i class="fa-solid fa-lock mr-1"></i> Vous ne payez rien pour le moment.</p>
+
+                    <!-- Contact Buttons -->
+                    <div class="flex gap-2 mt-6 pt-6 border-t border-gray-100">
+                        <button class="flex-1 btn-outline py-2.5 flex items-center justify-center text-sm">
+                            <i class="fa-solid fa-comment-dots mr-2"></i> Chatter
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Mobile Sticky Book CTA -->
+    <div class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-50 shadow-[0_-10px_15px_-3px_rgba(0,0,0,0.1)] flex justify-between items-center pb-8 shrink-0">
+        <div>
+            <span class="block text-sm text-gray-500">Tarif horaire</span>
+            <span class="font-bold text-gray-900">20 000 FCFA</span>
+        </div>
+        <a href="booking.html" class="btn-primary px-8">Réserver</a>
+    </div>
+
+</body>
+</html>

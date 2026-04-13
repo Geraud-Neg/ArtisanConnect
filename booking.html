@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réservation - ArtisanConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/tailwind-config.js"></script>
+    <style type="text/tailwindcss">
+        html { scroll-behavior: smooth; }
+        body { background-color: theme('colors.background'); }
+        .transition-smooth { transition: all 0.3s ease-in-out; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: theme('colors.gray.300'); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: theme('colors.primary.DEFAULT'); }
+        .input-field { @apply w-full px-4 py-3 rounded-card border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-smooth; }
+        .btn-primary { @apply bg-primary hover:bg-primary-dark text-white font-medium py-3 px-6 rounded-btn transition-smooth transform hover:-translate-y-1 shadow-card hover:shadow-hover; }
+        .btn-secondary { @apply bg-secondary hover:bg-secondary-dark text-white font-medium py-3 px-6 rounded-btn transition-smooth transform hover:-translate-y-1 shadow-card hover:shadow-hover; }
+        .btn-outline { @apply border-2 border-primary text-primary hover:bg-primary hover:text-white font-medium py-3 px-6 rounded-btn transition-smooth; }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        .animate-float { animation: float 4s ease-in-out infinite; }
+        .step-active {
+            @apply border-primary text-primary;
+        }
+        .step-completed {
+            @apply border-green-500 bg-green-500 text-white;
+        }
+        .step-pending {
+            @apply border-gray-300 text-gray-400;
+        }
+    </style>
+</head>
+<body class="font-sans text-text antialiased bg-background min-h-screen flex flex-col">
+
+    <!-- Navbar Minimal -->
+    <nav class="w-full bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="profile-artisan.html" class="flex items-center text-sm font-medium text-gray-500 hover:text-primary">
+                    <i class="fa-solid fa-arrow-left mr-2"></i> Retour au profil
+                </a>
+                <span class="text-primary text-xl font-bold font-poppins"><i class="fa-solid fa-hammer mr-2 text-secondary"></i>ArtisanConnect</span>
+                <div class="w-24"></div> <!-- Spacer -->
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="flex-grow py-10">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="mb-10 text-center">
+                <h1 class="text-3xl font-poppins font-bold text-gray-900 mb-2">Finalisez votre réservation</h1>
+                <p class="text-gray-500">Avec <span class="font-bold text-gray-800">Marc Dubois</span> (Plombier Chauffagiste)</p>
+            </div>
+
+            <!-- Stepper -->
+            <div class="flex items-center justify-center mb-12 max-w-2xl mx-auto">
+                <div class="flex flex-col items-center">
+                    <div class="w-10 h-10 rounded-full border-2 flex items-center justify-center font-bold step-completed">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    <span class="text-xs font-semibold mt-2 text-green-600">Service</span>
+                </div>
+                <div class="flex-1 h-0.5 bg-green-500 mx-2"></div>
+                <div class="flex flex-col items-center">
+                    <div class="w-10 h-10 rounded-full border-2 flex items-center justify-center font-bold step-active shadow-md">
+                        2
+                    </div>
+                    <span class="text-xs font-semibold mt-2 text-primary">Détails & Lieu</span>
+                </div>
+                <div class="flex-1 h-0.5 bg-gray-200 mx-2"></div>
+                <div class="flex flex-col items-center">
+                    <div class="w-10 h-10 rounded-full border-2 flex items-center justify-center font-bold step-pending">
+                        3
+                    </div>
+                    <span class="text-xs font-medium mt-2 text-gray-400">Paiement</span>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-card shadow-lg border border-gray-100 overflow-hidden">
+                <div class="grid grid-cols-1 md:grid-cols-3">
+                    
+                    <!-- Form Section -->
+                    <div class="col-span-2 p-8 border-b md:border-b-0 md:border-r border-gray-100">
+                        <h2 class="text-xl font-bold text-gray-900 mb-6 border-b border-gray-100 pb-4">Où l'intervention aura-t-elle lieu ?</h2>
+                        
+                        <form>
+                            <div class="grid grid-cols-1 gap-6 mb-8">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Adresse postale (Rue, Quartier)</label>
+                                    <div class="relative">
+                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <i class="fa-solid fa-map-pin text-gray-400"></i>
+                                        </div>
+                                        <input type="text" class="input-field pl-10" placeholder="Ex: Quartier Haie Vive, Rue 123">
+                                    </div>
+                                </div>
+                                
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Ville</label>
+                                        <select class="input-field appearance-none bg-white">
+                                            <option>Cotonou</option>
+                                            <option>Abomey-Calavi</option>
+                                            <option>Porto-Novo</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Code Postal (Optionnel)</label>
+                                        <input type="text" class="input-field" placeholder="00000">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h2 class="text-xl font-bold text-gray-900 mb-6 border-b border-gray-100 pb-4">Détails de l'intervention</h2>
+
+                            <div class="mb-6">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Description détaillée du problème</label>
+                                <textarea class="input-field" rows="4" placeholder="Veuillez décrire le plus précisément possible le problème rencontré..."></textarea>
+                            </div>
+
+                            <div class="mb-6">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Ajouter des photos (Optionnel)</label>
+                                <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center bg-gray-50 hover:bg-gray-100 transition-smooth cursor-pointer text-center">
+                                    <i class="fa-solid fa-cloud-arrow-up text-3xl text-gray-400 mb-2"></i>
+                                    <p class="text-sm font-medium text-gray-700">Cliquez pour importer des photos</p>
+                                    <p class="text-xs text-gray-500 mt-1">PNG, JPG jusqu'à 5MB</p>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-between items-center mt-8 pt-6 border-t border-gray-100">
+                                <button type="button" class="btn-outline">Retour</button>
+                                <button type="button" class="btn-primary" onclick="showModal()">Aller au paiement <i class="fa-solid fa-arrow-right ml-2"></i></button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Summary Sidebar -->
+                    <div class="col-span-1 p-8 bg-gray-50">
+                        <h3 class="text-lg font-bold text-gray-900 mb-6">Résumé</h3>
+                        
+                        <!-- Artisan Info Mini -->
+                        <div class="flex items-center mb-6 pb-6 border-b border-gray-200">
+                            <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" class="w-12 h-12 rounded-full object-cover mr-3">
+                            <div>
+                                <h4 class="font-bold text-sm text-gray-900">Marc Dubois</h4>
+                                <p class="text-xs text-gray-500">Plomberie</p>
+                            </div>
+                        </div>
+
+                        <!-- Reservation specificties -->
+                        <div class="space-y-4 mb-6 pb-6 border-b border-gray-200 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-500"><i class="fa-regular fa-calendar mr-2"></i> Date</span>
+                                <span class="font-medium text-gray-900">Mer. 4 Juin</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-500"><i class="fa-regular fa-clock mr-2"></i> Heure</span>
+                                <span class="font-medium text-gray-900">14:00 - 15:00</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-500"><i class="fa-solid fa-wrench mr-2"></i> Service</span>
+                                <span class="font-medium text-gray-900 text-right">Dépannage express</span>
+                            </div>
+                        </div>
+
+                        <!-- Price -->
+                        <div class="space-y-3 mb-6">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-500">Tarif estimé (1h)</span>
+                                <span class="font-medium text-gray-900">20 000 FCFA</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-500">Frais de déplacement</span>
+                                <span class="font-medium text-gray-900">2 500 FCFA</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-500">Frais de service (Plateforme)</span>
+                                <span class="font-medium text-gray-900">1 000 FCFA</span>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-center pt-4 border-t border-gray-300">
+                            <span class="font-bold text-gray-900">Total</span>
+                            <span class="font-bold text-xl text-secondary">23 500 FCFA</span>
+                        </div>
+                        
+                        <div class="mt-6 bg-blue-50 p-3 rounded-lg border border-blue-100 flex items-start">
+                            <i class="fa-solid fa-shield-halved text-primary mt-1 mr-2 text-lg"></i>
+                            <p class="text-xs text-primary font-medium">Votre argent est sécurisé. L'artisan ne sera payé qu'une fois la prestation validée par vos soins.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Modal Mock for Payments (FedaPay) -->
+    <div id="payment-modal" class="fixed inset-0 bg-black bg-opacity-50 z-[100] flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-8 transform scale-95 transition-transform duration-300" id="modal-content">
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fa-solid fa-lock text-2xl text-primary"></i>
+                </div>
+                <h3 class="text-xl font-bold font-poppins text-gray-900">Paiement Sécurisé</h3>
+                <p class="text-sm text-gray-500 mt-2">Vous allez être redirigé vers FedaPay pour procéder au paiement de <strong>23 500 FCFA</strong>.</p>
+            </div>
+            
+            <div class="flex flex-col space-y-3">
+                <button type="button" class="btn-primary w-full shadow-md" onclick="validatePayment()">
+                    <i class="fa-solid fa-credit-card mr-2"></i> Payer par Carte
+                </button>
+                <button type="button" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-6 rounded-btn transition-smooth w-full shadow-md" onclick="validatePayment()">
+                    <i class="fa-solid fa-mobile-screen mr-2"></i> Mobile Money
+                </button>
+                <button type="button" class="text-gray-500 font-medium py-2 hover:text-gray-800" onclick="hideModal()">Annuler</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('payment-modal');
+        const modalContent = document.getElementById('modal-content');
+
+        function showModal() {
+            modal.classList.remove('hidden');
+            // Small delay to allow display block to apply before animating opacity
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+            }, 10);
+        }
+
+        function hideModal() {
+            modal.classList.add('opacity-0');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function validatePayment() {
+            // Mocking payment success -> redirecting to a success screen or back to index layout for now
+            modalContent.innerHTML = `
+                <div class="text-center py-6">
+                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fa-solid fa-check text-4xl text-green-500"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold font-poppins text-gray-900 mb-2">Paiement Réussi !</h3>
+                    <p class="text-gray-600 mb-8">Votre réservation est confirmée. Vous allez recevoir un récapitulatif par email.</p>
+                    <a href="index.html" class="btn-primary inline-block">Retour à l'accueil</a>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
