@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ArtisanConnect - Trouvez les meilleurs artisans locaux</title>
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Tailwind CSS (CDN for development) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Tailwind Configuration -->
     <script src="js/tailwind-config.js"></script>
 
@@ -37,6 +40,7 @@
         }
     </style>
 </head>
+
 <body class="font-sans text-text antialiased">
 
     <!-- Navbar -->
@@ -45,20 +49,26 @@
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center cursor-pointer">
-                    <span class="text-primary text-2xl font-bold font-poppins"><i class="fa-solid fa-hammer mr-2 text-secondary"></i>ArtisanConnect</span>
+                    <span class="text-primary text-2xl font-bold font-poppins"><i
+                            class="fa-solid fa-hammer mr-2 text-secondary"></i>ArtisanConnect</span>
                 </div>
-                
+
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="index.html" class="text-primary font-medium hover:text-secondary transition-smooth">Accueil</a>
-                    <a href="search.html" class="text-gray-600 font-medium hover:text-primary transition-smooth">Artisans</a>
-                    <a href="search.html" class="text-gray-600 font-medium hover:text-primary transition-smooth">Services</a>
-                    <a href="index.html#comment-ca-marche" class="text-gray-600 font-medium hover:text-primary transition-smooth">Comment ça marche</a>
+                    <a href="index.html"
+                        class="text-primary font-medium hover:text-secondary transition-smooth">Accueil</a>
+                    <a href="search.html"
+                        class="text-gray-600 font-medium hover:text-primary transition-smooth">Artisans</a>
+                    <a href="search.html"
+                        class="text-gray-600 font-medium hover:text-primary transition-smooth">Services</a>
+                    <a href="index.html#comment-ca-marche"
+                        class="text-gray-600 font-medium hover:text-primary transition-smooth">Comment ça marche</a>
                 </div>
 
                 <!-- Auth Buttons -->
                 <div class="hidden md:flex items-center space-x-4">
-                    <a href="auth.html" class="text-gray-600 font-medium hover:text-primary transition-smooth">Connexion</a>
+                    <a href="auth.html"
+                        class="text-gray-600 font-medium hover:text-primary transition-smooth">Connexion</a>
                     <a href="auth.html" class="btn-primary">Inscription</a>
                 </div>
 
@@ -75,8 +85,10 @@
         <div class="md:hidden hidden bg-white shadow-xl absolute w-full" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="index.html" class="block px-3 py-2 text-base font-medium text-primary">Accueil</a>
-                <a href="search.html" class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-primary">Artisans</a>
-                <a href="auth.html" class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-primary">Connexion</a>
+                <a href="search.html"
+                    class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-primary">Artisans</a>
+                <a href="auth.html"
+                    class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-primary">Connexion</a>
             </div>
         </div>
     </nav>
@@ -85,42 +97,66 @@
     <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center max-w-3xl mx-auto">
-                <span class="inline-block py-1 px-3 rounded-full bg-blue-100 text-primary text-sm font-semibold mb-4 animate-bounce">
+                <span
+                    class="inline-block py-1 px-3 rounded-full bg-blue-100 text-primary text-sm font-semibold mb-4 animate-bounce">
                     <i class="fa-solid fa-star text-secondary mr-1"></i> La référence des artisans locaux
                 </span>
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-poppins font-bold text-gray-900 leading-tight mb-6">
-                    Trouvez l'artisan idéal pour vos <span class="text-primary relative inline-block">projets <svg class="absolute w-full h-3 -bottom-1 left-0 text-secondary" viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M0 10 Q 50 20 100 10" fill="transparent" stroke="currentColor" stroke-width="4"></path></svg></span>
+                    Trouvez l'artisan idéal pour vos <span class="text-primary relative inline-block">projets <svg
+                            class="absolute w-full h-3 -bottom-1 left-0 text-secondary" viewBox="0 0 100 20"
+                            preserveAspectRatio="none">
+                            <path d="M0 10 Q 50 20 100 10" fill="transparent" stroke="currentColor" stroke-width="4">
+                            </path>
+                        </svg></span>
                 </h1>
-                <p class="text-lg text-gray-600 mb-10">Plombiers, électriciens, menuisiers, ... Réservez des professionnels qualifiés et évalués près de chez vous en quelques clics.</p>
-                
+                <p class="text-lg text-gray-600 mb-10">Plombiers, électriciens, menuisiers, ... Réservez des
+                    professionnels qualifiés et évalués près de chez vous en quelques clics.</p>
+
                 <!-- Search Box -->
-                <div class="bg-white p-2 rounded-full shadow-card flex flex-col md:flex-row items-center relative z-20 max-w-4xl mx-auto">
-                    <div class="flex-1 w-full flex items-center px-4 py-2 border-b md:border-b-0 md:border-r border-gray-200">
+                <div
+                    class="bg-white p-2 rounded-full shadow-card flex flex-col md:flex-row items-center relative z-20 max-w-4xl mx-auto">
+                    <div
+                        class="flex-1 w-full flex items-center px-4 py-2 border-b md:border-b-0 md:border-r border-gray-200">
                         <i class="fa-solid fa-magnifying-glass text-gray-400 mr-3"></i>
-                        <input type="text" placeholder="Quel service recherchez-vous ?" class="w-full bg-transparent focus:outline-none text-gray-700">
+                        <input type="text" placeholder="Quel service recherchez-vous ?"
+                            class="w-full bg-transparent focus:outline-none text-gray-700">
                     </div>
-                    <div class="flex-1 w-full flex items-center px-4 py-2 border-b md:border-b-0 md:border-r border-gray-200">
+                    <div
+                        class="flex-1 w-full flex items-center px-4 py-2 border-b md:border-b-0 md:border-r border-gray-200">
                         <i class="fa-solid fa-location-dot text-gray-400 mr-3"></i>
-                        <input type="text" placeholder="Lieu (ex: Cotonou)" class="w-full bg-transparent focus:outline-none text-gray-700">
+                        <input type="text" placeholder="Lieu (ex: Cotonou)"
+                            class="w-full bg-transparent focus:outline-none text-gray-700">
                     </div>
-                    <a href="search.html" class="w-full md:w-auto mt-2 md:mt-0 btn-secondary rounded-full flex justify-center items-center">
+                    <a href="search.html"
+                        class="w-full md:w-auto mt-2 md:mt-0 btn-secondary rounded-full flex justify-center items-center">
                         Rechercher
                     </a>
                 </div>
 
                 <!-- Quick Categories -->
                 <div class="mt-10 flex flex-wrap justify-center gap-4 text-sm font-medium">
-                    <span class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-wrench mr-2 text-gray-400"></i>Plomberie</span>
-                    <span class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-bolt mr-2 text-gray-400"></i>Électricité</span>
-                    <span class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-chair mr-2 text-gray-400"></i>Menuiserie</span>
-                    <span class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-broom mr-2 text-gray-400"></i>Nettoyage</span>
+                    <span
+                        class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i
+                            class="fa-solid fa-wrench mr-2 text-gray-400"></i>Plomberie</span>
+                    <span
+                        class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i
+                            class="fa-solid fa-bolt mr-2 text-gray-400"></i>Électricité</span>
+                    <span
+                        class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i
+                            class="fa-solid fa-chair mr-2 text-gray-400"></i>Menuiserie</span>
+                    <span
+                        class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i
+                            class="fa-solid fa-broom mr-2 text-gray-400"></i>Nettoyage</span>
                 </div>
             </div>
         </div>
 
         <!-- Decorative Elements -->
-        <div class="absolute top-1/4 left-10 w-24 h-24 bg-primary rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-float"></div>
-        <div class="absolute top-1/3 right-10 w-32 h-32 bg-secondary rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-float" style="animation-delay: 2s;"></div>
+        <div
+            class="absolute top-1/4 left-10 w-24 h-24 bg-primary rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-float">
+        </div>
+        <div class="absolute top-1/3 right-10 w-32 h-32 bg-secondary rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-float"
+            style="animation-delay: 2s;"></div>
     </section>
 
     <!-- How it works -->
@@ -128,38 +164,47 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl font-poppins font-bold text-gray-900 mb-4">Comment ça marche ?</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Trouver un artisan n'a jamais été aussi simple. Suivez ces étapes pour réaliser vos travaux en toute sérénité.</p>
+                <p class="text-gray-600 max-w-2xl mx-auto">Trouver un artisan n'a jamais été aussi simple. Suivez ces
+                    étapes pour réaliser vos travaux en toute sérénité.</p>
             </div>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10 relative">
                 <!-- Connecting Line (Desktop) -->
-                <div class="hidden md:block absolute top-1/2 left-1/6 right-1/6 h-0.5 bg-gray-200 -z-10 transform -translate-y-1/2"></div>
-                
+                <div
+                    class="hidden md:block absolute top-1/2 left-1/6 right-1/6 h-0.5 bg-gray-200 -z-10 transform -translate-y-1/2">
+                </div>
+
                 <!-- Step 1 -->
                 <div class="text-center relative group">
-                    <div class="w-20 h-20 mx-auto bg-white border-4 border-primary rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-smooth">
+                    <div
+                        class="w-20 h-20 mx-auto bg-white border-4 border-primary rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-smooth">
                         <i class="fa-solid fa-search text-2xl text-primary"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-2">1. Recherchez</h3>
-                    <p class="text-gray-600 text-sm">Indiquez votre besoin et votre localisation pour trouver les meilleurs artisans.</p>
+                    <p class="text-gray-600 text-sm">Indiquez votre besoin et votre localisation pour trouver les
+                        meilleurs artisans.</p>
                 </div>
-                
+
                 <!-- Step 2 -->
                 <div class="text-center relative group">
-                    <div class="w-20 h-20 mx-auto bg-white border-4 border-secondary rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-smooth">
+                    <div
+                        class="w-20 h-20 mx-auto bg-white border-4 border-secondary rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-smooth">
                         <i class="fa-solid fa-calendar-check text-2xl text-secondary"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-2">2. Réservez</h3>
-                    <p class="text-gray-600 text-sm">Consultez les profils, les avis et réservez la date qui vous convient.</p>
+                    <p class="text-gray-600 text-sm">Consultez les profils, les avis et réservez la date qui vous
+                        convient.</p>
                 </div>
 
                 <!-- Step 3 -->
                 <div class="text-center relative group">
-                    <div class="w-20 h-20 mx-auto bg-white border-4 border-green-500 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-smooth">
+                    <div
+                        class="w-20 h-20 mx-auto bg-white border-4 border-green-500 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-smooth">
                         <i class="fa-solid fa-star text-2xl text-green-500"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-2">3. Évaluez</h3>
-                    <p class="text-gray-600 text-sm">Payez en ligne de façon sécurisée et laissez un avis post-prestation.</p>
+                    <p class="text-gray-600 text-sm">Payez en ligne de façon sécurisée et laissez un avis
+                        post-prestation.</p>
                 </div>
             </div>
         </div>
@@ -173,27 +218,35 @@
                     <h2 class="text-3xl font-poppins font-bold text-gray-900 mb-2">Artisans populaires</h2>
                     <p class="text-gray-600">Découvrez les professionnels les mieux notés de votre région.</p>
                 </div>
-                <a href="search.html" class="hidden sm:inline-flex text-primary font-medium hover:text-primary-dark transition-smooth items-center">
+                <a href="search.html"
+                    class="hidden sm:inline-flex text-primary font-medium hover:text-primary-dark transition-smooth items-center">
                     Voir tout <i class="fa-solid fa-arrow-right ml-2"></i>
                 </a>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Artisan Card 1 -->
-                <div class="bg-white rounded-card overflow-hidden shadow-card hover:shadow-hover transition-smooth group cursor-pointer" onclick="window.location.href='profile-artisan.html'">
+                <div class="bg-white rounded-card overflow-hidden shadow-card hover:shadow-hover transition-smooth group cursor-pointer"
+                    onclick="window.location.href='profile-artisan.html'">
                     <div class="h-48 bg-gray-200 relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Plombier" class="w-full h-full object-cover group-hover:scale-105 transition-smooth duration-500">
-                        <div class="absolute top-4 right-4 bg-white p-2 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="event.stopPropagation()">
+                        <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Plombier"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-smooth duration-500">
+                        <div class="absolute top-4 right-4 bg-white p-2 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10"
+                            onclick="event.stopPropagation()">
                             <i class="fa-regular fa-heart"></i>
                         </div>
-                        <div class="absolute bottom-4 left-4 bg-white px-3 py-1 rounded-full text-xs font-bold text-primary shadow-sm">
+                        <div
+                            class="absolute bottom-4 left-4 bg-white px-3 py-1 rounded-full text-xs font-bold text-primary shadow-sm">
                             Plomberie
                         </div>
                     </div>
                     <div class="p-5">
                         <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-primary transition-smooth">Marc Dubois</h3>
-                            <div class="flex items-center bg-green-100 px-2 py-0.5 rounded text-green-700 text-xs font-bold">
+                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-primary transition-smooth">Marc
+                                Dubois</h3>
+                            <div
+                                class="flex items-center bg-green-100 px-2 py-0.5 rounded text-green-700 text-xs font-bold">
                                 <i class="fa-solid fa-check-circle mr-1"></i> Vérifié
                             </div>
                         </div>
@@ -212,16 +265,21 @@
                 </div>
 
                 <!-- Artisan Card 2 -->
-                <div class="bg-white rounded-card overflow-hidden shadow-card hover:shadow-hover transition-smooth group cursor-pointer" onclick="window.location.href='profile-artisan.html'">
+                <div class="bg-white rounded-card overflow-hidden shadow-card hover:shadow-hover transition-smooth group cursor-pointer"
+                    onclick="window.location.href='profile-artisan.html'">
                     <div class="h-48 bg-gray-200 relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1601599561096-f87c95fff1e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Electricien" class="w-full h-full object-cover group-hover:scale-105 transition-smooth duration-500">
-                        <div class="absolute bottom-4 left-4 bg-white px-3 py-1 rounded-full text-xs font-bold text-primary shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1601599561096-f87c95fff1e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Electricien"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-smooth duration-500">
+                        <div
+                            class="absolute bottom-4 left-4 bg-white px-3 py-1 rounded-full text-xs font-bold text-primary shadow-sm">
                             Électricité
                         </div>
                     </div>
                     <div class="p-5">
                         <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-primary transition-smooth">Sarah K.</h3>
+                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-primary transition-smooth">Sarah
+                                K.</h3>
                         </div>
                         <div class="flex items-center text-sm text-gray-500 mb-4">
                             <i class="fa-solid fa-location-dot mr-2"></i> Akpakpa, Cotonou
@@ -238,10 +296,14 @@
                 </div>
 
                 <!-- Add 2 more static cards for visual completeness -->
-                <div class="bg-white rounded-card overflow-hidden shadow-card hover:shadow-hover transition-smooth group cursor-pointer hidden md:block">
+                <div
+                    class="bg-white rounded-card overflow-hidden shadow-card hover:shadow-hover transition-smooth group cursor-pointer hidden md:block">
                     <div class="h-48 bg-gray-200 relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Menuisier" class="w-full h-full object-cover group-hover:scale-105 transition-smooth duration-500">
-                        <div class="absolute bottom-4 left-4 bg-white px-3 py-1 rounded-full text-xs font-bold text-primary shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Menuisier"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-smooth duration-500">
+                        <div
+                            class="absolute bottom-4 left-4 bg-white px-3 py-1 rounded-full text-xs font-bold text-primary shadow-sm">
                             Menuiserie
                         </div>
                     </div>
@@ -260,10 +322,14 @@
                     </div>
                 </div>
 
-                <div class="bg-white rounded-card overflow-hidden shadow-card hover:shadow-hover transition-smooth group cursor-pointer hidden lg:block">
+                <div
+                    class="bg-white rounded-card overflow-hidden shadow-card hover:shadow-hover transition-smooth group cursor-pointer hidden lg:block">
                     <div class="h-48 bg-gray-200 relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Peinture" class="w-full h-full object-cover group-hover:scale-105 transition-smooth duration-500">
-                        <div class="absolute bottom-4 left-4 bg-white px-3 py-1 rounded-full text-xs font-bold text-primary shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Peinture"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-smooth duration-500">
+                        <div
+                            class="absolute bottom-4 left-4 bg-white px-3 py-1 rounded-full text-xs font-bold text-primary shadow-sm">
                             Peinture
                         </div>
                     </div>
@@ -283,7 +349,7 @@
                 </div>
             </div>
             <div class="mt-8 text-center sm:hidden">
-                 <a href="search.html" class="btn-outline w-full block">Voir tous les artisans</a>
+                <a href="search.html" class="btn-outline w-full block">Voir tous les artisans</a>
             </div>
         </div>
     </section>
@@ -293,19 +359,29 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                 <div class="col-span-1 md:col-span-1">
-                    <span class="text-2xl font-bold font-poppins mb-4 block"><i class="fa-solid fa-hammer mr-2 text-secondary"></i>ArtisanConnect</span>
-                    <p class="text-gray-400 text-sm mb-6">La plateforme numéro 1 pour trouver des artisans locaux qualifiés et de confiance.</p>
+                    <span class="text-2xl font-bold font-poppins mb-4 block"><i
+                            class="fa-solid fa-hammer mr-2 text-secondary"></i>ArtisanConnect</span>
+                    <p class="text-gray-400 text-sm mb-6">La plateforme numéro 1 pour trouver des artisans locaux
+                        qualifiés et de confiance.</p>
                     <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-smooth"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-smooth"><i class="fa-brands fa-twitter"></i></a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-smooth"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-smooth"><i
+                                class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-smooth"><i
+                                class="fa-brands fa-twitter"></i></a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-smooth"><i
+                                class="fa-brands fa-instagram"></i></a>
                     </div>
                 </div>
                 <div>
                     <h4 class="font-bold mb-4 uppercase text-sm tracking-wider">Liens Utiles</h4>
                     <ul class="space-y-2 text-gray-400 text-sm">
-                        <li><a href="index.html#comment-ca-marche" class="hover:text-primary transition-smooth">Comment ça marche</a></li>
-                        <li><a href="search.html" class="hover:text-primary transition-smooth">Tous les services</a></li>
+                        <li><a href="index.html#comment-ca-marche" class="hover:text-primary transition-smooth">Comment
+                                ça marche</a></li>
+                        <li><a href="search.html" class="hover:text-primary transition-smooth">Tous les services</a>
+                        </li>
                         <li><a href="#" class="hover:text-primary transition-smooth">Tarifs</a></li>
                         <li><a href="#" class="hover:text-primary transition-smooth">FAQ</a></li>
                     </ul>
@@ -321,12 +397,14 @@
                 <div>
                     <h4 class="font-bold mb-4 uppercase text-sm tracking-wider">Contact</h4>
                     <ul class="space-y-3 text-gray-400 text-sm">
-                        <li class="flex items-start"><i class="fa-solid fa-envelope mt-1 mr-3"></i> contact@artisanconnect.com</li>
+                        <li class="flex items-start"><i class="fa-solid fa-envelope mt-1 mr-3"></i>
+                            contact@artisanconnect.com</li>
                         <li class="flex items-start"><i class="fa-solid fa-phone mt-1 mr-3"></i> +229 00 00 00 00</li>
                     </ul>
                 </div>
             </div>
-            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm">
+            <div
+                class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm">
                 <p>&copy; 2026 ArtisanConnect. Tous droits réservés.</p>
                 <div class="space-x-4 mt-4 md:mt-0">
                     <a href="#" class="hover:text-white transition-smooth">Conditions générales</a>
@@ -338,9 +416,10 @@
 
     <!-- Script for mobile menu -->
     <script>
-        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+        document.getElementById('mobile-menu-btn').addEventListener('click', function () {
             document.getElementById('mobile-menu').classList.toggle('hidden');
         });
     </script>
 </body>
+
 </html>
