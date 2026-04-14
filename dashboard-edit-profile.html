@@ -255,6 +255,41 @@
                     
                 </section>
 
+                <!-- 6. Vérification KYC & Badges -->
+                <section id="section-kyc" class="bg-white rounded-card shadow-sm border border-gray-100 p-6">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
+                        <h3 class="text-lg font-bold text-gray-900 font-poppins flex items-center">
+                            <span class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center mr-3 text-sm">6</span>
+                            Vérification & Badges
+                        </h3>
+                        <span class="mt-2 sm:mt-0 bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full border border-blue-200 shadow-sm">
+                            <i class="fa-solid fa-medal mr-1"></i> Artisan de Quartier (Niveau 1)
+                        </span>
+                    </div>
+                    
+                    <p class="text-sm text-gray-600 mb-6">Pour obtenir le <strong class="text-secondary">Badge Niveau 2 (Artisan Confirmé)</strong> et booster votre visibilité, soumettez au moins 2 preuves de compétence.</p>
+                    
+                    <div class="space-y-6">
+                        <!-- Evidence Upload -->
+                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <label class="block text-sm font-bold text-gray-900 mb-1">Preuve 1: Photos de chantiers récents</label>
+                            <p class="text-xs text-gray-500 mb-3">Joignez les photos avant/après ou de vous en pleine prestation. MAX 5 photos.</p>
+                            <input type="file" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-primary hover:file:bg-blue-100 cursor-pointer" multiple accept="image/*">
+                        </div>
+
+                        <!-- Evidence Text -->
+                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <label class="block text-sm font-bold text-gray-900 mb-1">Preuve 2: Description détaillée d'une prestation phare</label>
+                            <p class="text-xs text-gray-500 mb-3">Décrivez le besoin client, votre méthode d'intervention et le résultat obtenu.</p>
+                            <textarea class="input-field bg-white" rows="4" placeholder="Ex: Rénovation électrique complète (Haie vive). J'ai diagnostiqué le problème... Le client était satisfait parce que..."></textarea>
+                        </div>
+                        
+                        <button type="button" class="btn-outline w-full sm:w-auto text-sm py-2">
+                            <i class="fa-solid fa-paper-plane mr-2"></i>Soumettre les preuves
+                        </button>
+                    </div>
+                </section>
+
                 <div class="flex justify-end pt-4">
                     <button class="btn-primary shadow-lg"><i class="fa-solid fa-save mr-2"></i> Sauvegarder les modifications</button>
                 </div>

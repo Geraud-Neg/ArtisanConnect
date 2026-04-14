@@ -108,6 +108,50 @@
                                 <input type="checkbox" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
                                 <span class="ml-2 text-sm text-gray-600">Nettoyage <span class="text-xs text-gray-400">(50)</span></span>
                             </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
+                                <span class="ml-2 text-sm text-gray-600">Maçonnerie <span class="text-xs text-gray-400">(41)</span></span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
+                                <span class="ml-2 text-sm text-gray-600">Carrelage <span class="text-xs text-gray-400">(19)</span></span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
+                                <span class="ml-2 text-sm text-gray-600">Faux-plafond <span class="text-xs text-gray-400">(12)</span></span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
+                                <span class="ml-2 text-sm text-gray-600">Climatisation/Froid <span class="text-xs text-gray-400">(24)</span></span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
+                                <span class="ml-2 text-sm text-gray-600">Électricité Auto/Moto <span class="text-xs text-gray-400">(37)</span></span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
+                                <span class="ml-2 text-sm text-gray-600">Soudure/Ferronnerie <span class="text-xs text-gray-400">(18)</span></span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
+                                <span class="ml-2 text-sm text-gray-600">Couture/Tailleurs <span class="text-xs text-gray-400">(82)</span></span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
+                                <span class="ml-2 text-sm text-gray-600">Coiffure/Esthétique <span class="text-xs text-gray-400">(105)</span></span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
+                                <span class="ml-2 text-sm text-gray-600">Mécanique Auto/Moto <span class="text-xs text-gray-400">(56)</span></span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
+                                <span class="ml-2 text-sm text-gray-600">Vulcanisation <span class="text-xs text-gray-400">(31)</span></span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
+                                <span class="ml-2 text-sm text-gray-600">Réparation Téléphone <span class="text-xs text-gray-400">(89)</span></span>
+                            </label>
                         </div>
                     </div>
 
@@ -208,10 +252,10 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     
                     <!-- Card 1 -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html'">
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=1'">
                         <div class="h-40 bg-gray-200 relative">
                             <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Plombier" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="event.stopPropagation()">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
                                 <i class="fa-regular fa-heart"></i>
                             </div>
                         </div>
@@ -235,13 +279,13 @@
                     </div>
 
                     <!-- Card 2 -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html'">
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=5'">
                         <div class="h-40 bg-gray-200 relative">
                             <div class="absolute inset-0 bg-gray-300 flex items-center justify-center text-gray-500">
                                 <i class="fa-solid fa-image text-3xl opacity-50"></i>
                             </div>
-                            <img src="https://images.unsplash.com/photo-1540569014015-19a7be504e3a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Plombier" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-red-500 transition-smooth shadow-sm z-10" onclick="event.stopPropagation()">
+                            <img src="https://picsum.photos/seed/plombier2/800/400" alt="Plombier" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
                                 <i class="fa-solid fa-heart"></i>
                             </div>
                         </div>
@@ -265,10 +309,10 @@
                     </div>
 
                     <!-- Card 3 -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html'">
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=6'">
                         <div class="h-40 bg-gray-200 relative">
-                            <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Plombier" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="event.stopPropagation()">
+                            <img src="https://picsum.photos/seed/eau/800/400" alt="Plombier" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
                                 <i class="fa-regular fa-heart"></i>
                             </div>
                             <!-- Badge -->
@@ -294,9 +338,798 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                    
+                    <!-- Card 4 (Maçon) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=7'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/macon/800/400" alt="Maçon" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Bâtisseurs Sûrs</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">4.7</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Maçon</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Cotonou (Haie Vive)
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">Sur Devis</span>
+                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Dispo</span>
+                            </div>
+                        </div>
+                    </div>
 
-                <!-- Pagination -->
+                    <!-- Card 5 (Carreleur) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=8'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/carreleur/800/400" alt="Carreleur" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Koffi Design</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">4.6</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Carreleur</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Akpakpa
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">3 000F / m2</span>
+                                <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-semibold rounded">En mission</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 6 (Faux-plafond) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=9'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/plafond/800/400" alt="Faux plafond" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Plafonds Modernes</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">4.8</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Poseur de faux-plafond</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Godomey
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">Sur Devis</span>
+                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Dispo demain</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 7 (Clim) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=10'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/clim/800/400" alt="Climatisation" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Climatisation Plus</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">5.0</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Technicien clim / froid</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Cotonou (Gbégamey)
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">10 000F / hr</span>
+                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Dispo ce soir</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 8 (Elec Auto) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=11'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/elecauto/800/400" alt="Auto-Elec" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Auto-Élec Pro</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">4.4</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Électricien auto / moto</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Fidjrossè
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">7 000F / panne</span>
+                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Rapide</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 9 (Soudeur) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=12'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/soudeur/800/400" alt="Soudeur" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Fer & Forge</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">4.9</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Soudeur / Ferronnier</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Calavi (Kpota)
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">Sur Devis</span>
+                                <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-semibold rounded">L-V</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 10 (Couturier) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=13'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/couture/800/400" alt="Tailleur" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Couture Édition</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">5.0</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Couturier / Tailleur</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Maro-Militaire
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">Sur Modèle</span>
+                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Dispo</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 11 (Coiffeur) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=14'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/coiffeur/800/400" alt="Coiffure" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Salon Beauté</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">4.8</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Coiffeur / Coiffeuse</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Saint-Michel
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">Dès 2 000F</span>
+                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Sans rdv</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 12 (Mécanicien) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=15'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/meca/800/400" alt="Mechanic" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Garage Central</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">4.6</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Mécanicien auto / moto</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Agla
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">Diagnosis: 5 000F</span>
+                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Ouvert</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 13 (Vulcanisateur) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=16'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/pneu/800/400" alt="Tires" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Pneus Rapides</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">4.5</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Vulcanisateur</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Étoile Rouge
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">500F / Patch</span>
+                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Urgences 24/7</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 14 (Téléphone) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=17'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/phone/800/400" alt="Tech" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Tech Réparation</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">4.9</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Réparateur téléphone</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Dantokpa
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">Diagnostic gratuit</span>
+                                <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-semibold rounded">En différé</span>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Card 2 (Électricienne) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=2'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/elec1/800/400" alt="Électricienne" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Sarah K.</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">4.4</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Électricienne</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Akpakpa, Cotonou
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">Sur Devis</span>
+                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Dispo</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 3 (Menuiserie) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=3'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/menuiserie1/800/400" alt="Menuiserie" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Atelier Boni</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">4.9</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Menuiserie</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Godomey
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">Sur Devis</span>
+                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Ouvert</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 4 (Peinture) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=4'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/peintre1/800/400" alt="Peinture" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Jean Peintre</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">4.5</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Peinture</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Fidjrossè
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">15 000F / hr</span>
+                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Aujourd'hui</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 18 (Électricien) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=18'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/elec2/800/400" alt="Électricien" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Élec-Rapide</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">4.7</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Électricien</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Cotonou
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">10 000F / hr</span>
+                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Dispo</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 19 (Menuiserie) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=19'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/menuiserie2/800/400" alt="Menuiserie" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Bois de Rêve</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">4.7</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Menuiserie</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Calavi
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">Sur Devis</span>
+                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">En semaine</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 20 (Peinture) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=20'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/peintre2/800/400" alt="Peinture" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Couleurs Magiques</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">4.6</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Peinture</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Agla
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">5 000F / m2</span>
+                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Sur rdv</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 21 (Nettoyage) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=21'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/nettoyage1/800/400" alt="Nettoyage" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Propre Vite</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">4.6</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Nettoyage</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Cotonou (Haie Vive)
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">Dès 10 000F</span>
+                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Dispo</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 22 (Nettoyage) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=22'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/nettoyage2/800/400" alt="Nettoyage" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Maison Éclatante</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">4.9</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Nettoyage</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Saint-Michel
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">15 000F / jour</span>
+                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Urgences</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 23 (Maçon) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=23'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/macon2/800/400" alt="Maçon" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Constructions Béton</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">4.8</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Maçon</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Akpakpa
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">Sur Devis</span>
+                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Pro</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 24 (Carreleur) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=24'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/carreleur2/800/400" alt="Carreleur" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Marbres & Dalles</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">4.9</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Carreleur</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Fidjrossè
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">4 000F / m2</span>
+                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Dispo</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 25 (Poseur de faux-plafond) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=25'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/plafond2/800/400" alt="Poseur de faux-plafond" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Déco-Plafond</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">4.4</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Poseur de faux-plafond</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Cotonou
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">Sur Devis</span>
+                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Devis Gratuit</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 26 (Technicien clim / froid) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=26'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/clim2/800/400" alt="Technicien clim / froid" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Froid Express</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">4.8</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Technicien clim / froid</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Godomey
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">8 000F / hr</span>
+                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Dispo 24/7</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 27 (Électricien auto / moto) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=27'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/elecauto2/800/400" alt="Électricien auto / moto" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Garage Auto-Éclair</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">4.7</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Électricien auto / moto</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Calavi
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">10000F</span>
+                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Rapide</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 28 (Soudeur / Ferronnier) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=28'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/soudeur2/800/400" alt="Soudeur / Ferronnier" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Métal-Pro</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">4.8</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Soudeur / Ferronnier</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Agla
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">Sur devis</span>
+                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Ouvert</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 29 (Couturier / Tailleur) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=29'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/couture2/800/400" alt="Couturier / Tailleur" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Fils & Modes</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">4.7</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Couturier / Tailleur</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Maro-Militaire
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">Sur modèle</span>
+                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Sur rdv</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 30 (Coiffeur / Coiffeuse) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=30'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/coiffeur2/800/400" alt="Coiffeur / Coiffeuse" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Afro-Style</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">4.9</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Coiffeur / Coiffeuse</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Étoile Rouge
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">Dès 3000F</span>
+                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Fermé</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 31 (Mécanicien auto / moto) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=31'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/meca2/800/400" alt="Mécanicien auto / moto" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Diagnostic Auto</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">4.6</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Mécanicien auto / moto</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Cotonou
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">15000F</span>
+                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Expert</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 32 (Vulcanisateur) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=32'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/pneu2/800/400" alt="Vulcanisateur" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Roues Secours</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">4.8</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Vulcanisateur</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Akpakpa
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">500F</span>
+                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">24/7</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 33 (Réparateur téléphone) -->
+                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=33'">
+                        <div class="h-40 bg-gray-200 relative">
+                            <img src="https://picsum.photos/seed/tel2/800/400" alt="Réparateur téléphone" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Mobile Doc</h3>
+                                <div class="flex items-center text-xs">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="ml-1 font-bold">4.5</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Réparateur téléphone</p>
+                            <div class="text-xs text-gray-500 flex items-center mb-4">
+                                <i class="fa-solid fa-location-dot mr-1"></i> Gbégamey
+                            </div>
+                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="font-bold text-secondary text-sm">Devis</span>
+                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Dispo</span>
+                            </div>
+                        </div>
+                    </div>\n                </div>\n\n                <!-- Pagination -->
                 <div class="flex justify-center mt-10">
                     <nav class="flex items-center space-x-1">
                         <button class="px-3 py-1 border border-gray-300 rounded text-gray-500 hover:bg-gray-50 disabled:opacity-50" disabled>
@@ -317,5 +1150,21 @@
         </div>
     </div>
 
+    <script>
+        function toggleHeart(event, element) {
+            event.stopPropagation();
+            const icon = element.querySelector('i');
+            
+            if (icon.classList.contains('fa-regular')) {
+                icon.classList.replace('fa-regular', 'fa-solid');
+                element.classList.replace('text-gray-400', 'text-red-500');
+                icon.style.transform = 'scale(1.2)';
+                setTimeout(() => icon.style.transform = 'scale(1)', 200);
+            } else {
+                icon.classList.replace('fa-solid', 'fa-regular');
+                element.classList.replace('text-red-500', 'text-gray-400');
+            }
+        }
+    </script>
 </body>
 </html>
