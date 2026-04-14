@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Client - ArtisanConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/tailwind-config.js"></script>
+    <script src="js/booking-manager.js"></script>
+    <style type="text/tailwindcss">
+        html { scroll-behavior: smooth; }
+        body { background-color: theme('colors.background'); }
+        .transition-smooth { transition: all 0.3s ease-in-out; }
+        .btn-primary { @apply bg-primary hover:bg-primary-dark text-white font-medium py-2 px-4 rounded-btn transition-smooth shadow-sm; }
+        .btn-outline { @apply border border-gray-300 text-gray-700 hover:bg-gray-50 font-medium py-2 px-4 rounded-btn transition-smooth; }
+        .nav-item.active { @apply bg-blue-50 text-primary font-bold border-l-4 border-primary; }
+        .nav-item { @apply flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 transition-smooth font-medium border-l-4 border-transparent; }
+    </style>
+</head>
+<body class="font-sans text-text antialiased bg-gray-50 h-screen flex overflow-hidden">
+
+    <!-- Sidebar Overlay -->
+    <div class="fixed inset-0 bg-black bg-opacity-50 z-20 hidden md:hidden" id="sidebar-overlay"></div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-64 bg-white border-r border-gray-200 flex flex-col flex-shrink-0 fixed inset-y-0 left-0 z-30 transform -translate-x-full transition-transform duration-300 md:relative md:translate-x-0">
+        <div class="h-20 flex items-center justify-between px-6 border-b border-gray-200">
+            <span class="text-primary text-xl font-bold font-poppins"><i class="fa-solid fa-hammer mr-2 text-secondary"></i>ArtisanConnect</span>
+            <button class="md:hidden text-gray-500 hover:text-red-500" id="close-sidebar-btn">
+                <i class="fa-solid fa-times text-xl"></i>
+            </button>
+        </div>
+        
+        <div class="py-4 flex-1 overflow-y-auto">
+            <a href="#" class="nav-item">
+                <i class="fa-regular fa-user w-6 text-center mr-2"></i> Mon Profil
+            </a>
+            <a href="#" class="nav-item active">
+                <i class="fa-regular fa-calendar-check w-6 text-center mr-2"></i> Mes Réservations
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-regular fa-heart w-6 text-center mr-2"></i> Mes Favoris
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-regular fa-message w-6 text-center mr-2"></i> Messages
+            </a>
+        </div>
+        
+        <div class="p-4 border-t border-gray-200">
+            <a href="index.html" class="flex items-center px-4 py-2 text-gray-600 hover:text-red-500 hover:bg-red-50 rounded-lg transition-smooth">
+                <i class="fa-solid fa-arrow-right-from-bracket w-6 text-center mr-2"></i> Retour à l'accueil
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content wrapper -->
+    <div class="flex-1 flex flex-col h-screen overflow-hidden">
+        
+        <!-- Top Navbar -->
+        <header class="h-20 bg-white border-b border-gray-200 flex items-center justify-between px-4 sm:px-6 z-10 w-full">
+            <div class="flex items-center">
+                <button class="md:hidden text-gray-500 focus:outline-none mr-4" id="open-sidebar-btn">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <h1 class="text-xl font-bold text-gray-900 font-poppins">Mes Réservations</h1>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-3 pl-4">
+                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-primary font-bold">ME</div>
+                    <div class="hidden sm:block text-sm">
+                        <p class="font-bold text-gray-900">Moi (Client)</p>
+                        <p class="text-xs text-gray-500">Particulier</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page Content -->
+        <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 p-4 sm:p-6 lg:p-8">
+            
+            <div class="bg-white border border-gray-100 rounded-card shadow-sm overflow-hidden">
+                <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+                    <h2 class="text-lg font-bold text-gray-900">Historique de vos demandes</h2>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="text-gray-500 text-xs uppercase tracking-wider border-b border-gray-200">
+                                <th class="px-6 py-4 font-medium">Artisan & Service</th>
+                                <th class="px-6 py-4 font-medium">Date & Heure</th>
+                                <th class="px-6 py-4 font-medium text-right">Montant estimé</th>
+                                <th class="px-6 py-4 font-medium text-center">Statut</th>
+                                <th class="px-6 py-4 font-medium text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm" id="client-bookings-table">
+                            <!-- JS will populate this -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Modal Mock for Payments (FedaPay) -->
+    <div id="payment-modal" class="fixed inset-0 bg-black bg-opacity-50 z-[100] flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-8 transform scale-95 transition-transform duration-300" id="modal-content">
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fa-solid fa-lock text-2xl text-primary"></i>
+                </div>
+                <h3 class="text-xl font-bold font-poppins text-gray-900">Paiement de l'acompte</h3>
+                <p class="text-sm text-gray-500 mt-2">Vous allez régler un acompte de <strong id="acompte-amount">...</strong> (30%) pour sécuriser votre réservation via FedaPay (Escrow).</p>
+            </div>
+            
+            <div class="flex flex-col space-y-3">
+                <button type="button" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-6 rounded-btn transition-smooth w-full shadow-md flex justify-center items-center" onclick="processPayment()">
+                    <i class="fa-solid fa-mobile-screen mr-2"></i> Payer via MTN MoMo
+                </button>
+                <button type="button" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-btn transition-smooth w-full shadow-md flex justify-center items-center" onclick="processPayment()">
+                    <i class="fa-solid fa-mobile-screen mr-2"></i> Payer via Moov Money
+                </button>
+                <button type="button" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-btn transition-smooth w-full shadow-md flex justify-center items-center" onclick="processPayment()">
+                    <i class="fa-solid fa-mobile-screen mr-2"></i> Payer via Celtis Momo
+                </button>
+                <button type="button" class="text-gray-500 font-medium py-2 hover:text-gray-800" onclick="hidePaymentModal()">Annuler</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Validation Modal -->
+    <div id="validation-modal" class="fixed inset-0 bg-black bg-opacity-50 z-[100] flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-8 transform scale-95 transition-transform duration-300" id="validation-modal-content">
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fa-solid fa-shield-halved text-2xl text-purple-600"></i>
+                </div>
+                <h3 class="text-xl font-bold font-poppins text-gray-900">Validation de la prestation</h3>
+                <p class="text-sm text-gray-500 mt-2">Veuillez saisir le code à 4 chiffres reçu par SMS pour confirmer que le travail a été effectué et libérer le paiement pour l'artisan.</p>
+            </div>
+            
+            <div class="flex flex-col space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1 text-left">Code de validation</label>
+                    <input type="text" id="validation-code" placeholder="Ex: 1234" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 text-center text-xl tracking-[1em] font-bold" maxlength="4">
+                    <p id="validation-error" class="text-red-500 text-xs mt-1 hidden text-left">Code invalide. Veuillez réessayer.</p>
+                </div>
+                <button type="button" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-btn transition-smooth w-full shadow-md" onclick="processValidation()">
+                    Confirmer & Libérer les fonds
+                </button>
+                <div class="flex justify-between items-center text-sm px-1">
+                    <button type="button" class="text-gray-500 hover:text-gray-800" onclick="hideValidationModal()">Plus tard (48h max)</button>
+                    <button type="button" class="text-red-500 hover:text-red-700 font-medium" onclick="hideValidationModal(); openDisputeModal();">Signaler Litige</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Review Modal -->
+    <div id="review-modal" class="fixed inset-0 bg-black bg-opacity-50 z-[100] flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-8 transform scale-95 transition-transform duration-300" id="review-modal-content">
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fa-solid fa-star text-2xl text-yellow-500"></i>
+                </div>
+                <h3 class="text-xl font-bold font-poppins text-gray-900">Notez l'artisan</h3>
+                <p class="text-sm text-gray-500 mt-2">Votre avis est précieux ! Comment s'est passée votre prestation ?</p>
+            </div>
+            
+            <div class="flex justify-center space-x-2 text-3xl text-gray-300 mb-6 cursor-pointer">
+                <i class="fa-solid fa-star hover:text-yellow-400"></i>
+                <i class="fa-solid fa-star hover:text-yellow-400"></i>
+                <i class="fa-solid fa-star hover:text-yellow-400"></i>
+                <i class="fa-solid fa-star hover:text-yellow-400"></i>
+                <i class="fa-solid fa-star hover:text-yellow-400"></i>
+            </div>
+
+            <textarea class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary mb-4" rows="3" placeholder="Laissez un commentaire détaillé..."></textarea>
+            
+            <div class="flex flex-col space-y-3">
+                <button type="button" class="btn-primary py-3 px-6 rounded-btn transition-smooth w-full shadow-md" onclick="submitReview()">
+                    Publier l'avis
+                </button>
+                <button type="button" class="text-gray-500 font-medium py-2 hover:text-gray-800" onclick="hideReviewModal()">Fermer</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            renderClientBookings();
+        });
+
+        let currentPayingBookingId = null;
+
+        function renderClientBookings() {
+            // Identifier is 'Me (Client)' default
+            const bookings = window.bookingManager.getClientBookings('Me (Client)');
+            const tbody = document.getElementById('client-bookings-table');
+            tbody.innerHTML = '';
+            
+            if(bookings.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="px-6 py-4 text-center text-gray-500">Vous n\'avez aucune réservation pour le moment. <a href="index.html" class="text-primary hover:underline">Rechercher un artisan</a></td></tr>';
+                return;
+            }
+
+            bookings.forEach(b => {
+                let badgeClass = '';
+                let badgeText = '';
+                let actionBtn = '';
+                
+                if(b.status === 'pending') {
+                    badgeClass = 'bg-yellow-100 text-yellow-800';
+                    badgeText = 'En attente';
+                    actionBtn = `<span class="text-xs text-gray-400 italic">En attente de réponse...</span>`;
+                } else if(b.status === 'confirmed') {
+                    badgeClass = 'bg-green-100 text-green-800';
+                    badgeText = 'Acceptée';
+                    // Need to pay deposit
+                    actionBtn = `<button onclick="openPaymentModal('${b.id}', ${b.amount})" class="btn-primary py-1.5 px-3 text-xs w-full shadow-sm"><i class="fa-solid fa-wallet mr-1"></i> Payer Acompte</button>`;
+                } else if(b.status === 'paid') {
+                    badgeClass = 'bg-blue-100 text-blue-800';
+                    badgeText = 'Acompte Payé (Escrow)';
+                    actionBtn = `<button class="btn-outline py-1.5 px-3 text-xs w-full"><i class="fa-regular fa-message mr-1"></i> Contacter</button>`;
+                } else if(b.status === 'completed_by_artisan') {
+                    badgeClass = 'bg-purple-100 text-purple-800 border items-center border-purple-200';
+                    badgeText = 'Validation client requise';
+                    actionBtn = `
+                        <button onclick="openValidationModal('${b.id}')" class="bg-purple-600 hover:bg-purple-700 text-white font-medium py-1.5 px-3 rounded shadow-sm text-[11px] w-full mb-1 transition-smooth">
+                            <i class="fa-solid fa-check-double mr-1"></i> Valider code SMS
+                        </button>
+                        <p class="text-[9px] text-gray-400 text-center italic">Expire dans 48h</p>
+                    `;
+                } else if (b.status === 'cancelled') {
+                    badgeClass = 'bg-red-100 text-red-800';
+                    badgeText = 'Annulée / Refusée';
+                    actionBtn = `<button class="btn-outline py-1.5 px-3 text-xs w-full text-red-500 px-0"><i class="fa-solid fa-trash mr-1"></i> Supprimer</button>`;
+                } else {
+                    badgeClass = 'bg-gray-100 text-gray-600';
+                    badgeText = 'Terminée';
+                    actionBtn = `<button class="btn-outline py-1.5 px-3 text-xs w-full"><i class="fa-solid fa-star mr-1"></i> Laisser un avis</button>`;
+                }
+
+                tbody.innerHTML += `
+                    <tr class="border-b border-gray-50 hover:bg-gray-50">
+                        <td class="px-6 py-4">
+                            <p class="font-bold text-gray-900">${b.artisanName}</p>
+                            <p class="text-xs text-gray-500">${b.service}</p>
+                        </td>
+                        <td class="px-6 py-4">
+                            <p class="font-medium text-gray-900">${b.date}</p>
+                            <p class="text-xs text-gray-500">${b.time}</p>
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                            <p class="font-bold text-gray-900">${b.amount ? b.amount + ' FCFA' : 'Sur Devis'}</p>
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide ${badgeClass}">
+                                ${badgeText}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                            ${actionBtn}
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function openPaymentModal(id, totalAmount) {
+            currentPayingBookingId = id;
+            const acompte = Math.round((totalAmount || 23500) * 0.3);
+            document.getElementById('acompte-amount').textContent = acompte + ' FCFA';
+            
+            const modal = document.getElementById('payment-modal');
+            const modalContent = document.getElementById('modal-content');
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+            }, 10);
+        }
+
+        function hidePaymentModal() {
+            const modal = document.getElementById('payment-modal');
+            const modalContent = document.getElementById('modal-content');
+            
+            modal.classList.add('opacity-0');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function processPayment() {
+            if(currentPayingBookingId) {
+                // Mettre à jour le statut
+                window.bookingManager.updateBookingStatus(currentPayingBookingId, 'paid');
+                
+                const modalContent = document.getElementById('modal-content');
+                modalContent.innerHTML = `
+                    <div class="text-center py-6">
+                        <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fa-solid fa-check text-4xl text-green-500"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold font-poppins text-gray-900 mb-2">Paiement Réussi !</h3>
+                        <p class="text-gray-600 mb-8">Votre acompte est bloqué en escrow. L'artisan en a été notifié et se déplacera le jour de l'intervention.</p>
+                        <button onclick="window.location.reload()" class="btn-primary inline-block">Retour à mes réservations</button>
+                    </div>
+                `;
+            }
+        }
+
+        let currentValidatingBookingId = null;
+
+        function openValidationModal(id) {
+            currentValidatingBookingId = id;
+            document.getElementById('validation-code').value = '';
+            document.getElementById('validation-error').classList.add('hidden');
+            
+            const modal = document.getElementById('validation-modal');
+            const modalContent = document.getElementById('validation-modal-content');
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+            }, 10);
+        }
+
+        function hideValidationModal() {
+            const modal = document.getElementById('validation-modal');
+            const modalContent = document.getElementById('validation-modal-content');
+            
+            modal.classList.add('opacity-0');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function processValidation() {
+            const code = document.getElementById('validation-code').value;
+            // Mock validation: any 4 digits code will work except 0000
+            if (code.length === 4 && code !== '0000') {
+                if (currentValidatingBookingId) {
+                    window.bookingManager.updateBookingStatus(currentValidatingBookingId, 'completed');
+                    
+                    const modalContent = document.getElementById('validation-modal-content');
+                    modalContent.innerHTML = `
+                        <div class="text-center py-6">
+                            <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <i class="fa-solid fa-check-double text-4xl text-green-500"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold font-poppins text-gray-900 mb-2">Prestation Validée !</h3>
+                            <p class="text-gray-600 mb-4">Le paiement été débloqué via FedaPay vers le portefeuille de l'artisan.</p>
+                            <p class="text-sm font-bold text-gray-800 mb-8 bg-gray-50 p-2 rounded border border-gray-100">Payout FedaPay en cours <i class="fa-solid fa-spinner fa-spin text-green-500 ml-2"></i></p>
+                            <button type="button" onclick="hideValidationModal(); setTimeout(openReviewModal, 300);" class="btn-primary inline-block w-full">Continuer vers l'évaluation</button>
+                        </div>
+                    `;
+                }
+            } else {
+                document.getElementById('validation-error').classList.remove('hidden');
+            }
+        }
+
+        function openReviewModal() {
+            const modal = document.getElementById('review-modal');
+            const modalContent = document.getElementById('review-modal-content');
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+            }, 10);
+        }
+
+        function hideReviewModal() {
+            const modal = document.getElementById('review-modal');
+            const modalContent = document.getElementById('review-modal-content');
+            
+            modal.classList.add('opacity-0');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                renderClientBookings(); // Refresh UI
+            }, 300);
+        }
+
+        function submitReview() {
+            const modalContent = document.getElementById('review-modal-content');
+            modalContent.innerHTML = `
+                <div class="text-center py-6">
+                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fa-solid fa-star text-4xl text-green-500"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold font-poppins text-gray-900 mb-2">Merci pour votre avis !</h3>
+                    <p class="text-gray-600 mb-8">Votre retour aide la communauté ArtisanConnect à faire les bons choix.</p>
+                    <button type="button" onclick="hideReviewModal()" class="btn-primary inline-block w-full">Fermer</button>
+                </div>
+            `;
+        }
+
+        function openDisputeModal() {
+            alert("Ouverture d'un ticket de litige. Les fonds resteront bloqués jusqu'à la résolution par l'équipe ArtisanConnect.");
+        }
+
+        // Sidebar Toggle for Mobile
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            const openBtn = document.getElementById('open-sidebar-btn');
+            const closeBtn = document.getElementById('close-sidebar-btn');
+
+            function toggleSidebar() {
+                if(!sidebar || !overlay) return;
+                const isClosed = sidebar.classList.contains('-translate-x-full');
+                if(isClosed) {
+                    sidebar.classList.remove('-translate-x-full');
+                    overlay.classList.remove('hidden');
+                } else {
+                    sidebar.classList.add('-translate-x-full');
+                    overlay.classList.add('hidden');
+                }
+            }
+
+            if(openBtn) openBtn.addEventListener('click', toggleSidebar);
+            if(closeBtn) closeBtn.addEventListener('click', toggleSidebar);
+            if(overlay) overlay.addEventListener('click', toggleSidebar);
+        });
+    </script>
+</body>
+</html>

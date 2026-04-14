@@ -37,7 +37,20 @@
                 <div class="flex items-center space-x-4">
                     <button class="text-gray-500 hover:text-primary"><i class="fa-solid fa-share-nodes"></i></button>
                     <button class="text-gray-500 hover:text-red-500 transition-smooth" onclick="toggleHeart(event, this)"><i class="fa-regular fa-heart"></i></button>
+                    <!-- Mobile menu button -->
+                    <button class="md:hidden text-gray-600 hover:text-primary focus:outline-none" id="mobile-menu-btn">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
                 </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div class="md:hidden hidden bg-white shadow-xl absolute w-full z-50 border-t border-gray-200" id="mobile-menu">
+            <div class="px-4 py-4 space-y-2">
+                <a href="index.html" class="block py-2 text-base font-medium text-gray-600 hover:text-primary"><i class="fa-solid fa-house w-5"></i> Accueil</a>
+                <a href="search.html" class="block py-2 text-base font-medium text-gray-600 hover:text-primary"><i class="fa-solid fa-search w-5"></i> Artisans</a>
+                <a href="dashboard-client.html" class="block py-2 text-base font-medium text-gray-600 hover:text-primary"><i class="fa-regular fa-user w-5"></i> Mon profil</a>
             </div>
         </div>
     </nav>
@@ -259,26 +272,36 @@
                     </div>
 
                     <!-- Mini Calendar mock -->
-                    <div class="grid grid-cols-7 gap-1 mb-4 text-center text-xs">
+                    <div class="grid grid-cols-7 gap-1 mb-4 text-center text-xs" id="booking-calendar">
                         <div class="text-gray-400 font-medium">L</div><div class="text-gray-400 font-medium">M</div><div class="text-gray-400 font-medium">M</div><div class="text-gray-400 font-medium">J</div><div class="text-gray-400 font-medium">V</div><div class="text-gray-400 font-medium">S</div><div class="text-gray-400 font-medium">D</div>
                         
                         <!-- Dates -->
                         <div class="text-gray-300 py-1">29</div><div class="text-gray-300 py-1">30</div>
-                        <div class="py-1 cursor-pointer hover:bg-gray-100 rounded">1</div>
-                        <div class="py-1 cursor-pointer hover:bg-gray-100 rounded">2</div>
+                        <div class="py-1 cursor-pointer hover:bg-gray-100 rounded date-slot" onclick="selectDate(this, '1 Juin')">1</div>
+                        <div class="py-1 cursor-pointer hover:bg-gray-100 rounded date-slot" onclick="selectDate(this, '2 Juin')">2</div>
                         <div class="py-1 bg-red-50 text-red-400 line-through rounded cursor-not-allowed" title="Non disponible">3</div>
-                        <div class="py-1 bg-primary text-white font-bold rounded shadow-sm shadow-blue-200">4</div>
-                        <div class="py-1 cursor-pointer hover:bg-gray-100 rounded">5</div>
+                        <div class="py-1 cursor-pointer hover:bg-gray-100 rounded date-slot bg-primary text-white font-bold shadow-sm shadow-blue-200" onclick="selectDate(this, '4 Juin')" id="selected-date-el">4</div>
+                        <div class="py-1 cursor-pointer hover:bg-gray-100 rounded date-slot" onclick="selectDate(this, '5 Juin')">5</div>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Heure souhiatée</label>
+                        <select id="booking-time" class="w-full border border-gray-200 rounded-md py-3 px-4 focus:ring-1 focus:ring-primary focus:border-primary text-gray-700 appearance-none bg-white">
+                            <option>09:00 - 10:00</option>
+                            <option>10:00 - 11:00</option>
+                            <option selected>14:00 - 15:00</option>
+                            <option>16:00 - 17:00</option>
+                        </select>
                     </div>
 
                     <div class="mb-6">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Quel est votre besoin ?</label>
-                        <textarea class="w-full border border-gray-200 rounded-md p-3 focus:ring-1 focus:ring-primary focus:border-primary text-sm text-gray-700" rows="3" placeholder="Décrivez brièvement le problème (ex: Fuite sous évier, tuyau apparent)"></textarea>
+                        <textarea id="booking-problem" class="w-full border border-gray-200 rounded-md p-3 focus:ring-1 focus:ring-primary focus:border-primary text-sm text-gray-700" rows="3" placeholder="Décrivez brièvement le problème (ex: Fuite sous évier, tuyau apparent)"></textarea>
                     </div>
 
-                    <a href="booking.html" class="btn-primary w-full block text-center py-4 text-lg">
+                    <button type="button" onclick="goToBooking()" class="btn-primary w-full block text-center py-4 text-lg">
                         Continuer ma réservation
-                    </a>
+                    </button>
                     <p class="text-xs text-center text-gray-400 mt-3"><i class="fa-solid fa-lock mr-1"></i> Vous ne payez rien pour le moment.</p>
 
                     <!-- Contact Buttons -->
@@ -605,6 +628,42 @@
                 element.classList.replace('text-red-500', 'text-gray-500');
             }
         }
+
+        let selectedDateText = '4 Juin';
+
+        function selectDate(element, dateText) {
+            document.querySelectorAll('.date-slot').forEach(el => {
+                el.classList.remove('bg-primary', 'text-white', 'font-bold', 'shadow-sm', 'shadow-blue-200');
+            });
+            element.classList.add('bg-primary', 'text-white', 'font-bold', 'shadow-sm', 'shadow-blue-200');
+            selectedDateText = dateText;
+        }
+
+        function goToBooking() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const artisanId = urlParams.get('id') || '1';
+            
+            const bookingData = {
+                artisanId: artisanId,
+                date: selectedDateText,
+                time: document.getElementById('booking-time').value,
+                service: document.getElementById('booking-problem').value || 'Service général'
+            };
+            
+            sessionStorage.setItem('current_booking', JSON.stringify(bookingData));
+            window.location.href = 'booking.html';
+        }
+
+        // Mobile Menu Toggle
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if(mobileBtn && mobileMenu) {
+                mobileBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        });
     </script>
 
 </body>

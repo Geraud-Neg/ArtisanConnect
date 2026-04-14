@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="js/tailwind-config.js"></script>
+    <script src="js/booking-manager.js"></script>
     <style type="text/tailwindcss">
         html { scroll-behavior: smooth; }
         body { background-color: theme('colors.background'); }
@@ -70,14 +71,14 @@
                     <div class="w-10 h-10 rounded-full border-2 flex items-center justify-center font-bold step-active shadow-md">
                         2
                     </div>
-                    <span class="text-xs font-semibold mt-2 text-primary">Détails & Lieu</span>
+                    <span class="text-xs font-semibold mt-2 text-primary">Détails & Demande</span>
                 </div>
                 <div class="flex-1 h-0.5 bg-gray-200 mx-2"></div>
                 <div class="flex flex-col items-center">
                     <div class="w-10 h-10 rounded-full border-2 flex items-center justify-center font-bold step-pending">
                         3
                     </div>
-                    <span class="text-xs font-medium mt-2 text-gray-400">Paiement</span>
+                    <span class="text-xs font-medium mt-2 text-gray-400">Confirmation</span>
                 </div>
             </div>
 
@@ -133,8 +134,8 @@
                             </div>
 
                             <div class="flex justify-between items-center mt-8 pt-6 border-t border-gray-100">
-                                <button type="button" class="btn-outline">Retour</button>
-                                <button type="button" class="btn-primary" onclick="showModal()">Aller au paiement <i class="fa-solid fa-arrow-right ml-2"></i></button>
+                                <button type="button" class="btn-outline" onclick="window.history.back()">Retour</button>
+                                <button type="button" class="btn-primary" onclick="submitReservation()">Envoyer la demande <i class="fa-solid fa-paper-plane ml-2"></i></button>
                             </div>
                         </form>
                     </div>
@@ -156,15 +157,15 @@
                         <div class="space-y-4 mb-6 pb-6 border-b border-gray-200 text-sm">
                             <div class="flex justify-between">
                                 <span class="text-gray-500"><i class="fa-regular fa-calendar mr-2"></i> Date</span>
-                                <span class="font-medium text-gray-900">Mer. 4 Juin</span>
+                                <span class="font-medium text-gray-900" id="summary-date">...</span>
                             </div>
                             <div class="flex justify-between">
                                 <span class="text-gray-500"><i class="fa-regular fa-clock mr-2"></i> Heure</span>
-                                <span class="font-medium text-gray-900">14:00 - 15:00</span>
+                                <span class="font-medium text-gray-900" id="summary-time">...</span>
                             </div>
                             <div class="flex justify-between">
                                 <span class="text-gray-500"><i class="fa-solid fa-wrench mr-2"></i> Service</span>
-                                <span class="font-medium text-gray-900 text-right">Dépannage express</span>
+                                <span class="font-medium text-gray-900 text-right" id="summary-service">...</span>
                             </div>
                         </div>
 
@@ -190,8 +191,8 @@
                         </div>
                         
                         <div class="mt-6 bg-blue-50 p-3 rounded-lg border border-blue-100 flex items-start">
-                            <i class="fa-solid fa-shield-halved text-primary mt-1 mr-2 text-lg"></i>
-                            <p class="text-xs text-primary font-medium">Votre argent est sécurisé. L'artisan ne sera payé qu'une fois la prestation validée par vos soins.</p>
+                            <i class="fa-solid fa-info-circle text-primary mt-1 mr-2 text-lg"></i>
+                            <p class="text-xs text-primary font-medium">Vous ne payez rien maintenant. L'artisan doit d'abord accepter votre demande. Vous paierez l'acompte (30%) ensuite pour sécuriser la réservation.</p>
                         </div>
                     </div>
 
@@ -201,25 +202,16 @@
         </div>
     </div>
 
-    <!-- Modal Mock for Payments (FedaPay) -->
+    <!-- Modal Success -->
     <div id="payment-modal" class="fixed inset-0 bg-black bg-opacity-50 z-[100] flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
         <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-8 transform scale-95 transition-transform duration-300" id="modal-content">
-            <div class="text-center mb-6">
-                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fa-solid fa-lock text-2xl text-primary"></i>
+            <div class="text-center py-6">
+                <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fa-solid fa-check text-4xl text-green-500"></i>
                 </div>
-                <h3 class="text-xl font-bold font-poppins text-gray-900">Paiement Sécurisé</h3>
-                <p class="text-sm text-gray-500 mt-2">Vous allez être redirigé vers FedaPay pour procéder au paiement de <strong>23 500 FCFA</strong>.</p>
-            </div>
-            
-            <div class="flex flex-col space-y-3">
-                <button type="button" class="btn-primary w-full shadow-md" onclick="validatePayment()">
-                    <i class="fa-solid fa-credit-card mr-2"></i> Payer par Carte
-                </button>
-                <button type="button" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-6 rounded-btn transition-smooth w-full shadow-md" onclick="validatePayment()">
-                    <i class="fa-solid fa-mobile-screen mr-2"></i> Mobile Money
-                </button>
-                <button type="button" class="text-gray-500 font-medium py-2 hover:text-gray-800" onclick="hideModal()">Annuler</button>
+                <h3 class="text-2xl font-bold font-poppins text-gray-900 mb-2">Demande Envoyée !</h3>
+                <p class="text-gray-600 mb-8">Votre demande a été transmise à l'artisan. Vous serez notifié de sa réponse pour régler l'acompte.</p>
+                <a href="dashboard-client.html" class="btn-primary w-full block">Suivre ma réservation</a>
             </div>
         </div>
     </div>
@@ -227,36 +219,40 @@
     <script>
         const modal = document.getElementById('payment-modal');
         const modalContent = document.getElementById('modal-content');
+        
+        let currentBooking = null;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            currentBooking = JSON.parse(sessionStorage.getItem('current_booking'));
+            if (currentBooking) {
+                document.getElementById('summary-date').textContent = currentBooking.date;
+                document.getElementById('summary-time').textContent = currentBooking.time;
+                document.getElementById('summary-service').textContent = currentBooking.service;
+            }
+        });
 
         function showModal() {
             modal.classList.remove('hidden');
-            // Small delay to allow display block to apply before animating opacity
             setTimeout(() => {
                 modal.classList.remove('opacity-0');
                 modalContent.classList.remove('scale-95');
             }, 10);
         }
 
-        function hideModal() {
-            modal.classList.add('opacity-0');
-            modalContent.classList.add('scale-95');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
-        }
-
-        function validatePayment() {
-            // Mocking payment success -> redirecting to a success screen or back to index layout for now
-            modalContent.innerHTML = `
-                <div class="text-center py-6">
-                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <i class="fa-solid fa-check text-4xl text-green-500"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold font-poppins text-gray-900 mb-2">Paiement Réussi !</h3>
-                    <p class="text-gray-600 mb-8">Votre réservation est confirmée. Vous allez recevoir un récapitulatif par email.</p>
-                    <a href="index.html" class="btn-primary inline-block">Retour à l'accueil</a>
-                </div>
-            `;
+        function submitReservation() {
+            if(!currentBooking) return;
+            
+            // Créer la réservation via le manager avec statut pending
+            window.bookingManager.createBooking({
+                artisanId: currentBooking.artisanId,
+                date: currentBooking.date,
+                time: currentBooking.time,
+                service: currentBooking.service,
+                status: 'pending',
+                amount: 23500
+            });
+            
+            showModal();
         }
     </script>
 </body>

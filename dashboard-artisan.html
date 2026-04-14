@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="js/tailwind-config.js"></script>
+    <script src="js/booking-manager.js"></script>
     <style type="text/tailwindcss">
         html { scroll-behavior: smooth; }
         body { background-color: theme('colors.background'); }
@@ -32,10 +33,16 @@
 </head>
 <body class="font-sans text-text antialiased bg-gray-50 h-screen flex overflow-hidden">
 
+    <!-- Sidebar Overlay -->
+    <div class="fixed inset-0 bg-black bg-opacity-50 z-20 hidden md:hidden" id="sidebar-overlay"></div>
+
     <!-- Sidebar -->
-    <aside class="w-64 bg-white border-r border-gray-200 hidden md:flex flex-col flex-shrink-0 relative z-20">
-        <div class="h-20 flex items-center px-6 border-b border-gray-200">
+    <aside id="sidebar" class="w-64 bg-white border-r border-gray-200 flex flex-col flex-shrink-0 fixed inset-y-0 left-0 z-30 transform -translate-x-full transition-transform duration-300 md:relative md:translate-x-0">
+        <div class="h-20 flex items-center justify-between px-6 border-b border-gray-200">
             <span class="text-primary text-xl font-bold font-poppins"><i class="fa-solid fa-hammer mr-2 text-secondary"></i>ArtisanConnect</span>
+            <button class="md:hidden text-gray-500 hover:text-red-500" id="close-sidebar-btn">
+                <i class="fa-solid fa-times text-xl"></i>
+            </button>
         </div>
         
         <div class="p-4 flex-1 overflow-y-auto space-y-2">
@@ -78,9 +85,9 @@
     <div class="flex-1 flex flex-col h-screen overflow-hidden">
         
         <!-- Top Navbar -->
-        <header class="h-20 bg-white border-b border-gray-200 flex items-center justify-between px-4 sm:px-6 z-10">
+        <header class="h-20 bg-white border-b border-gray-200 flex items-center justify-between px-4 sm:px-6 z-10 w-full">
             <div class="flex items-center">
-                <button class="md:hidden text-gray-500 focus:outline-none mr-4">
+                <button class="md:hidden text-gray-500 focus:outline-none mr-4" id="open-sidebar-btn">
                     <i class="fa-solid fa-bars text-xl"></i>
                 </button>
                 <div class="relative hidden sm:block">
@@ -207,83 +214,8 @@
                                     <th class="px-6 py-4 font-medium text-right">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody class="text-sm">
-                                <!-- Row 1 - Pending Validation -->
-                                <tr class="border-b border-gray-100 hover:bg-gray-50 transition-smooth">
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center">
-                                            <div class="w-8 h-8 rounded-full bg-blue-100 text-primary flex items-center justify-center font-bold text-xs mr-3">JD</div>
-                                            <div>
-                                                <p class="font-bold text-gray-900">Julien Decla</p>
-                                                <p class="text-xs text-gray-500">+229 01 02 03 04 05</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-gray-700">Dépannage express</td>
-                                    <td class="px-6 py-4">
-                                        <p class="font-medium text-gray-900">Demain</p>
-                                        <p class="text-xs text-gray-500">14:00 - 15:00</p>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-800">
-                                            À valider
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 text-right space-x-2">
-                                        <button class="text-green-500 hover:text-green-700 p-1 bg-green-50 rounded" title="Accepter"><i class="fa-solid fa-check"></i></button>
-                                        <button class="text-red-500 hover:text-red-700 p-1 bg-red-50 rounded" title="Refuser"><i class="fa-solid fa-times"></i></button>
-                                    </td>
-                                </tr>
-                                
-                                <!-- Row 2 - Confirmed -->
-                                <tr class="border-b border-gray-100 hover:bg-gray-50 transition-smooth">
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center">
-                                            <div class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-xs mr-3">SA</div>
-                                            <div>
-                                                <p class="font-bold text-gray-900">Sara Ali</p>
-                                                <p class="text-xs text-gray-500">Haie vive, Cotonou</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-gray-700">Installation chauffe-eau</td>
-                                    <td class="px-6 py-4">
-                                        <p class="font-medium text-gray-900">12 Juin 2026</p>
-                                        <p class="text-xs text-gray-500">09:00 - 12:00</p>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800">
-                                            Confirmée
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 text-right">
-                                        <button class="text-primary hover:text-primary-dark p-1" title="Voir infos"><i class="fa-solid fa-eye"></i></button>
-                                    </td>
-                                </tr>
-
-                                <!-- Row 3 - Completed -->
-                                <tr class="hover:bg-gray-50 transition-smooth">
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center">
-                                            <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center font-bold text-xs mr-3">FM</div>
-                                            <div>
-                                                <p class="font-bold text-gray-900">Franck M.</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-gray-700">Fuite tuyauterie</td>
-                                    <td class="px-6 py-4">
-                                        <p class="font-medium text-gray-900">Il y a 2 jours</p>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-600">
-                                            Réalisée
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 text-right">
-                                        <span class="text-xs text-gray-500 font-bold">Payé (+20k)</span>
-                                    </td>
-                                </tr>
+                            <tbody class="text-sm" id="bookings-table-body">
+                                <!-- Les réservations seront chargées ici dynamiquement -->
                             </tbody>
                         </table>
                     </div>
@@ -325,5 +257,121 @@
         </main>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            renderBookings();
+        });
+
+        function renderBookings() {
+            // Utilisateur courant = Artisan ID 1 (Marc Dubois pour la démo)
+            const bookings = window.bookingManager.getArtisanBookings('1');
+            const tbody = document.getElementById('bookings-table-body');
+            tbody.innerHTML = '';
+            
+            if(bookings.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="px-6 py-4 text-center text-gray-500">Aucune réservation trouvée.</td></tr>';
+                return;
+            }
+
+            bookings.forEach(b => {
+                const initals = b.clientName.substring(0,2).toUpperCase();
+                
+                let badgeClass = '';
+                let badgeText = '';
+                let actions = '';
+                
+                if(b.status === 'pending' || b.status === 'paid_pending') {
+                    badgeClass = 'bg-yellow-100 text-yellow-800';
+                    badgeText = 'À valider';
+                    actions = `
+                        <button onclick="updateStatus('${b.id}', 'confirmed')" class="text-green-500 hover:text-green-700 p-1 bg-green-50 rounded" title="Accepter"><i class="fa-solid fa-check"></i></button>
+                        <button onclick="updateStatus('${b.id}', 'cancelled')" class="text-red-500 hover:text-red-700 p-1 bg-red-50 rounded" title="Refuser"><i class="fa-solid fa-times"></i></button>
+                    `;
+                } else if(b.status === 'confirmed') {
+                    badgeClass = 'bg-green-100 text-green-800';
+                    badgeText = 'Confirmée (Attente Paiement)';
+                    actions = `
+                        <button class="text-primary hover:text-primary-dark p-1" title="Voir infos"><i class="fa-solid fa-eye"></i></button>
+                    `;
+                } else if(b.status === 'paid') {
+                    badgeClass = 'bg-blue-100 text-blue-800';
+                    badgeText = 'Acompte Payé (Escrow)';
+                    actions = `
+                        <button onclick="updateStatus('${b.id}', 'completed_by_artisan')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded shadow-sm text-xs mt-1" title="Marquer comme Terminé">
+                            <i class="fa-solid fa-clipboard-check mr-1"></i>Terminer
+                        </button>
+                    `;
+                } else if(b.status === 'completed_by_artisan') {
+                    badgeClass = 'bg-purple-100 text-purple-800';
+                    badgeText = 'Attente Validation';
+                    actions = `<span class="text-xs text-purple-600 font-bold"><i class="fa-solid fa-clock mr-1"></i>En attente client</span>`;
+                } else if (b.status === 'cancelled') {
+                    badgeClass = 'bg-red-100 text-red-800';
+                    badgeText = 'Annulée';
+                    actions = `<span class="text-xs text-gray-400">Terminé</span>`;
+                } else {
+                    badgeClass = 'bg-gray-100 text-gray-600';
+                    badgeText = 'Réalisée';
+                    actions = `<span class="text-xs text-gray-500 font-bold">Terminé</span>`;
+                }
+
+                tbody.innerHTML += `
+                    <tr class="border-b border-gray-100 hover:bg-gray-50 transition-smooth">
+                        <td class="px-6 py-4">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-full bg-blue-100 text-primary flex items-center justify-center font-bold text-xs mr-3">${initals}</div>
+                                <div>
+                                    <p class="font-bold text-gray-900">${b.clientName}</p>
+                                    <p class="text-xs text-gray-500">${b.clientPhone || ''}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 text-gray-700">${b.service}</td>
+                        <td class="px-6 py-4">
+                            <p class="font-medium text-gray-900">${b.date}</p>
+                            <p class="text-xs text-gray-500">${b.time}</p>
+                        </td>
+                        <td class="px-6 py-4">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold ${badgeClass}">
+                                ${badgeText}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 text-right space-x-2">
+                            ${actions}
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function updateStatus(id, status) {
+            window.bookingManager.updateBookingStatus(id, status);
+            renderBookings(); // Rafraichir le tableau
+        }
+
+        // Sidebar Toggle for Mobile
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            const openBtn = document.getElementById('open-sidebar-btn');
+            const closeBtn = document.getElementById('close-sidebar-btn');
+
+            function toggleSidebar() {
+                if(!sidebar || !overlay) return;
+                const isClosed = sidebar.classList.contains('-translate-x-full');
+                if(isClosed) {
+                    sidebar.classList.remove('-translate-x-full');
+                    overlay.classList.remove('hidden');
+                } else {
+                    sidebar.classList.add('-translate-x-full');
+                    overlay.classList.add('hidden');
+                }
+            }
+
+            if(openBtn) openBtn.addEventListener('click', toggleSidebar);
+            if(closeBtn) closeBtn.addEventListener('click', toggleSidebar);
+            if(overlay) overlay.addEventListener('click', toggleSidebar);
+        });
+    </script>
 </body>
 </html>
