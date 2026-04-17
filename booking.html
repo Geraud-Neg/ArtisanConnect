@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="js/tailwind-config.js"></script>
+    <script src="js/auth.js"></script>
     <script src="js/booking-manager.js"></script>
     <style type="text/tailwindcss">
         html { scroll-behavior: smooth; }
@@ -55,7 +56,7 @@
             
             <div class="mb-10 text-center">
                 <h1 class="text-3xl font-poppins font-bold text-gray-900 mb-2">Finalisez votre réservation</h1>
-                <p class="text-gray-500">Avec <span class="font-bold text-gray-800">Marc Dubois</span> (Plombier Chauffagiste)</p>
+                <p class="text-gray-500">Avec <span id="booking-artisan-name" class="font-bold text-gray-800">Marc Dubois</span> (<span id="booking-artisan-job">Plombier Chauffagiste</span>)</p>
             </div>
 
             <!-- Stepper -->
@@ -125,12 +126,35 @@
                             </div>
 
                             <div class="mb-6">
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Ajouter des photos (Optionnel)</label>
-                                <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center bg-gray-50 hover:bg-gray-100 transition-smooth cursor-pointer text-center">
-                                    <i class="fa-solid fa-cloud-arrow-up text-3xl text-gray-400 mb-2"></i>
-                                    <p class="text-sm font-medium text-gray-700">Cliquez pour importer des photos</p>
-                                    <p class="text-xs text-gray-500 mt-1">PNG, JPG jusqu'à 5MB</p>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Ajouter des médias (Photos ou Vidéos)</label>
+                                
+                                <div class="grid grid-cols-3 gap-3">
+                                    <!-- Option 1: Appareil photo arrière -->
+                                    <div class="border-2 border-dashed border-primary bg-blue-50 rounded-lg p-4 flex flex-col items-center justify-center hover:bg-blue-100 transition-smooth cursor-pointer text-center group shadow-sm" onclick="openCamera('environment')">
+                                        <i class="fa-solid fa-camera text-2xl text-primary mb-2 group-hover:scale-110 transition-transform duration-300"></i>
+                                        <p class="text-xs font-bold text-primary">Caméra</p>
+                                        <p class="text-[10px] text-blue-400 mt-0.5">Arrière</p>
+                                    </div>
+
+                                    <!-- Option 2: Selfie (Avant) -->
+                                    <div class="border-2 border-dashed border-green-500 bg-green-50 rounded-lg p-4 flex flex-col items-center justify-center hover:bg-green-100 transition-smooth cursor-pointer text-center group shadow-sm" onclick="openCamera('user')">
+                                        <i class="fa-solid fa-camera-rotate text-2xl text-green-500 mb-2 group-hover:scale-110 transition-transform duration-300"></i>
+                                        <p class="text-xs font-bold text-green-600">Selfie</p>
+                                        <p class="text-[10px] text-green-400 mt-0.5">Avant</p>
+                                    </div>
+                                    
+                                    <!-- Option 3: Galerie d'images -->
+                                    <div class="border-2 border-dashed border-gray-300 bg-gray-50 rounded-lg p-4 flex flex-col items-center justify-center hover:bg-gray-100 transition-smooth cursor-pointer text-center group shadow-sm" onclick="document.getElementById('photo-upload').click()">
+                                        <i class="fa-solid fa-images text-2xl text-gray-400 mb-2 group-hover:scale-110 transition-transform duration-300"></i>
+                                        <p class="text-xs font-bold text-gray-700">Galerie</p>
+                                        <p class="text-[10px] text-gray-500 mt-0.5">Fichiers (max 20Mo)</p>
+                                    </div>
                                 </div>
+
+                                <input type="file" id="photo-upload" multiple accept="image/*, video/*" class="hidden">
+                                
+                                <!-- Preview container -->
+                                <div id="image-preview-container" class="flex flex-wrap gap-4 mt-4 empty:mt-0"></div>
                             </div>
 
                             <div class="flex justify-between items-center mt-8 pt-6 border-t border-gray-100">
@@ -146,10 +170,10 @@
                         
                         <!-- Artisan Info Mini -->
                         <div class="flex items-center mb-6 pb-6 border-b border-gray-200">
-                            <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" class="w-12 h-12 rounded-full object-cover mr-3">
+                            <img id="booking-artisan-avatar" src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" class="w-12 h-12 rounded-full object-cover mr-3">
                             <div>
-                                <h4 class="font-bold text-sm text-gray-900">Marc Dubois</h4>
-                                <p class="text-xs text-gray-500">Plomberie</p>
+                                <h4 id="booking-artisan-name-mini" class="font-bold text-sm text-gray-900">Marc Dubois</h4>
+                                <p id="booking-artisan-job-mini" class="text-xs text-gray-500">Plomberie</p>
                             </div>
                         </div>
 
@@ -172,8 +196,8 @@
                         <!-- Price -->
                         <div class="space-y-3 mb-6">
                             <div class="flex justify-between text-sm">
-                                <span class="text-gray-500">Tarif estimé (1h)</span>
-                                <span class="font-medium text-gray-900">20 000 FCFA</span>
+                                <span class="text-gray-500" id="booking-price-label">Tarif estimé (Base)</span>
+                                <span class="font-medium text-gray-900" id="booking-price-base">20 000 FCFA</span>
                             </div>
                             <div class="flex justify-between text-sm">
                                 <span class="text-gray-500">Frais de déplacement</span>
@@ -181,13 +205,13 @@
                             </div>
                             <div class="flex justify-between text-sm">
                                 <span class="text-gray-500">Frais de service (Plateforme)</span>
-                                <span class="font-medium text-gray-900">1 000 FCFA</span>
+                                <span class="font-medium text-gray-900">600 FCFA</span>
                             </div>
                         </div>
 
                         <div class="flex justify-between items-center pt-4 border-t border-gray-300">
-                            <span class="font-bold text-gray-900">Total</span>
-                            <span class="font-bold text-xl text-secondary">23 500 FCFA</span>
+                            <span class="font-bold text-gray-900">Total estimé</span>
+                            <span class="font-bold text-xl text-secondary" id="booking-price-total">23 500 FCFA</span>
                         </div>
                         
                         <div class="mt-6 bg-blue-50 p-3 rounded-lg border border-blue-100 flex items-start">
@@ -216,7 +240,57 @@
         </div>
     </div>
 
+    <!-- Modal in-app Camera -->
+    <div id="camera-modal" class="fixed inset-0 bg-black bg-opacity-95 z-[200] hidden flex-col items-center justify-center">
+        <div class="bg-white w-full max-w-md h-full sm:h-auto sm:max-h-[85vh] sm:rounded-xl shadow-2xl flex flex-col overflow-hidden">
+            <!-- Header bar -->
+            <div class="flex justify-between items-center p-4 bg-white z-10 shrink-0">
+                <h3 class="font-bold text-gray-900" id="camera-modal-title">Prise de média</h3>
+                <button type="button" class="text-gray-500 hover:text-red-500 transition-smooth p-2" onclick="closeCamera()">
+                    <i class="fa-solid fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Video frame -->
+            <div class="relative bg-black flex-1 min-h-0 w-full flex items-center justify-center overflow-hidden">
+                <video id="camera-video" autoplay playsinline class="w-full h-full object-cover"></video>
+                <!-- Recording indicator -->
+                <div id="recording-indicator" class="hidden absolute top-6 left-1/2 transform -translate-x-1/2 items-center bg-black bg-opacity-70 rounded-full px-5 py-2 z-50 shadow-lg">
+                    <div class="w-4 h-4 rounded-full bg-red-500 animate-pulse mr-3 shadow-[0_0_8px_rgba(239,68,68,0.8)]"></div>
+                    <span class="text-white text-sm font-bold tracking-wider" id="recording-time">REC</span>
+                </div>
+            </div>
+
+            <!-- Controls area -->
+            <div class="bg-gray-100 shrink-0 flex flex-col z-10 border-t border-gray-200">
+                <!-- Toggle Mode -->
+                <div class="flex justify-center border-b border-gray-200">
+                    <button id="mode-photo" class="text-primary font-bold text-sm px-6 py-3 border-b-2 border-primary transition-all" onclick="setCaptureMode('photo')">PHOTO</button>
+                    <button id="mode-video" class="text-gray-500 font-bold text-sm px-6 py-3 border-b-2 border-transparent hover:text-gray-700 transition-all" onclick="setCaptureMode('video')">VIDÉO</button>
+                </div>
+                
+                <div class="p-6 flex flex-col items-center justify-center pb-8">
+                    <!-- Capture Button -->
+                    <button type="button" id="capture-btn" class="w-20 h-20 rounded-full bg-white border-4 border-gray-300 flex items-center justify-center shadow-md transition-all active:scale-95 z-10" onclick="takeAction()">
+                        <div id="capture-btn-core" class="w-14 h-14 rounded-full bg-primary pointer-events-none transition-all"></div>
+                    </button>
+                    <!-- Helper Text -->
+                    <p id="capture-help-text" class="text-xs font-medium text-gray-500 mt-4 transition-all">Appuyez pour prendre la photo</p>
+                </div>
+            </div>
+        </div>
+        <canvas id="camera-canvas" class="hidden"></canvas>
+    </div>
+
     <script>
+        // Protéger l'accès direct (Forcer la page d'inscription/connexion)
+        if (!AuthManager.isAuthenticated()) {
+            // Cacher le contenu de la page pour ne pas exposer les infos sans être connecté
+            document.querySelector('.flex-grow').style.display = 'none';
+            // Demander l'authentification (ouvre le formulaire d'inscription par défaut)
+            AuthManager.requireAuth();
+        }
+
         const modal = document.getElementById('payment-modal');
         const modalContent = document.getElementById('modal-content');
         
@@ -228,6 +302,35 @@
                 document.getElementById('summary-date').textContent = currentBooking.date;
                 document.getElementById('summary-time').textContent = currentBooking.time;
                 document.getElementById('summary-service').textContent = currentBooking.service;
+                
+                if (currentBooking.artisanName) {
+                    document.getElementById('booking-artisan-name').textContent = currentBooking.artisanName;
+                    document.getElementById('booking-artisan-name-mini').textContent = currentBooking.artisanName;
+                }
+                if (currentBooking.artisanJob) {
+                    document.getElementById('booking-artisan-job').textContent = currentBooking.artisanJob;
+                    document.getElementById('booking-artisan-job-mini').textContent = currentBooking.artisanJob;
+                }
+                if (currentBooking.artisanAvatar) {
+                    document.getElementById('booking-artisan-avatar').src = currentBooking.artisanAvatar;
+                }
+                if (currentBooking.artisanPrice) {
+                    document.getElementById('booking-price-base').textContent = currentBooking.artisanPrice;
+                    
+                    // Logic to extract numeric price and compute total
+                    let basePriceStr = currentBooking.artisanPrice.replace(/[^0-9]/g, '');
+                    let basePriceNum = basePriceStr ? parseInt(basePriceStr, 10) : 0;
+                    if (basePriceNum === 0 || currentBooking.artisanPrice.toLowerCase().includes('devis')) {
+                        document.getElementById('booking-price-base').textContent = 'Sur Devis';
+                        document.getElementById('booking-price-total').textContent = 'Sur Devis';
+                    } else {
+                        let total = basePriceNum + 2500 + 600;
+                        document.getElementById('booking-price-base').textContent = basePriceNum.toLocaleString('fr-FR') + ' FCFA';
+                        document.getElementById('booking-price-total').textContent = total.toLocaleString('fr-FR') + ' FCFA';
+                        
+                        currentBooking.computedTotal = total;
+                    }
+                }
             }
         });
 
@@ -243,16 +346,248 @@
             if(!currentBooking) return;
             
             // Créer la réservation via le manager avec statut pending
+            let amt = currentBooking.computedTotal || 23500;
+            if (currentBooking.artisanPrice && currentBooking.artisanPrice.toLowerCase().includes('devis')) amt = 0;
+
             window.bookingManager.createBooking({
                 artisanId: currentBooking.artisanId,
                 date: currentBooking.date,
                 time: currentBooking.time,
                 service: currentBooking.service,
                 status: 'pending',
-                amount: 23500
+                amount: amt
             });
             
             showModal();
+        }
+
+        // Photo Upload and Capture Logic
+        const photoUpload = document.getElementById('photo-upload');
+        const previewContainer = document.getElementById('image-preview-container');
+        let selectedFiles = [];
+
+        function handleFileSelection(e) {
+            const files = Array.from(e.target.files);
+            
+            files.forEach((file) => {
+                // Check file type and size (20MB max for video flexibility)
+                if ((!file.type.match('image.*') && !file.type.match('video.*')) || file.size > 20 * 1024 * 1024) {
+                    alert("Fichier non supporté ou trop volumineux (max 20Mo).");
+                    return;
+                }
+                
+                selectedFiles.push(file);
+                const currentFileIndex = selectedFiles.length - 1;
+                
+                const url = URL.createObjectURL(file);
+                addPreviewElement(url, currentFileIndex, file.type.match('video.*'));
+            });
+            
+            // Clear input
+            if(e.target) e.target.value = '';
+        }
+
+        if(photoUpload) photoUpload.addEventListener('change', handleFileSelection);
+
+        function addPreviewElement(src, fileIndex, isVideo = false) {
+            const div = document.createElement('div');
+            div.className = 'relative w-24 h-24 rounded-lg overflow-hidden border border-gray-200 shadow-sm group bg-black';
+            
+            let mediaContent = isVideo ? 
+                `<video src="${src}" autoplay muted loop playsinline class="w-full h-full object-cover opacity-80"></video>
+                 <div class="absolute top-1 right-1 bg-red-600 rounded px-1.5 py-0.5 text-[8px] text-white font-bold tracking-wider z-10 shadow-sm"><i class="fa-solid fa-video mr-1"></i>VID</div>`
+                : `<img src="${src}" class="w-full h-full object-cover">`;
+
+            div.innerHTML = `
+                ${mediaContent}
+                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-smooth z-20">
+                    <button type="button" class="text-white hover:text-red-500 transform hover:scale-110 transition-all p-2 rounded-full bg-red-500 bg-opacity-20" onclick="removePhoto(this, ${fileIndex})">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+            `;
+            previewContainer.appendChild(div);
+        }
+
+        window.removePhoto = function(btnElement, fileIndex) {
+            const previewCard = btnElement.closest('.relative');
+            previewCard.remove();
+            selectedFiles[fileIndex] = null;
+        }
+
+        // --- Camera & Video Capture logic ---
+        let currentStream = null;
+        let captureMode = 'photo';
+        let mediaRecorder = null;
+        let recordedChunks = [];
+        let isRecording = false;
+
+        function setCaptureMode(mode) {
+            captureMode = mode;
+            document.getElementById('mode-photo').classList.toggle('text-primary', mode === 'photo');
+            document.getElementById('mode-photo').classList.toggle('border-primary', mode === 'photo');
+            document.getElementById('mode-photo').classList.toggle('text-gray-500', mode === 'video');
+            document.getElementById('mode-photo').classList.toggle('border-transparent', mode === 'video');
+            
+            document.getElementById('mode-video').classList.toggle('text-red-500', mode === 'video');
+            document.getElementById('mode-video').classList.toggle('border-red-500', mode === 'video');
+            document.getElementById('mode-video').classList.toggle('text-gray-500', mode === 'photo');
+            document.getElementById('mode-video').classList.toggle('border-transparent', mode === 'photo');
+
+            document.getElementById('capture-btn-core').className = mode === 'video' ? 
+                'w-14 h-14 rounded-full bg-red-500 pointer-events-none transition-all' : 
+                'w-14 h-14 rounded-full bg-primary pointer-events-none transition-all';
+                
+            document.getElementById('capture-help-text').textContent = mode === 'video' ? 
+                "Appuyez pour filmer" : "Appuyez pour prendre la photo";
+            document.getElementById('capture-help-text').className = "text-xs font-medium text-gray-500 mt-4 transition-all";
+        }
+
+        function takeAction() {
+            if (captureMode === 'photo') {
+                takePhoto();
+            } else {
+                toggleRecording();
+            }
+        }
+
+        function toggleRecording() {
+            const btnCore = document.getElementById('capture-btn-core');
+            const indicator = document.getElementById('recording-indicator');
+            const helpText = document.getElementById('capture-help-text');
+            
+            if (!isRecording) {
+                // START RECORDING
+                recordedChunks = [];
+                // Check if MediaRecorder is supported
+                if(!window.MediaRecorder) {
+                    alert("L'enregistrement vidéo n'est pas supporté par votre navigateur.");
+                    return;
+                }
+                
+                try {
+                    mediaRecorder = new MediaRecorder(currentStream);
+                } catch(e) {
+                    mediaRecorder = new MediaRecorder(currentStream, {mimeType: 'video/mp4'}); // fallback
+                }
+                
+                mediaRecorder.ondataavailable = e => {
+                    if (e.data.size > 0) recordedChunks.push(e.data);
+                };
+                
+                mediaRecorder.onstop = () => {
+                    const blob = new Blob(recordedChunks, { type: mediaRecorder.mimeType || 'video/webm' });
+                    const file = new File([blob], `video_${Date.now()}.${mediaRecorder.mimeType && mediaRecorder.mimeType.includes('mp4') ? 'mp4' : 'webm'}`, { type: blob.type });
+                    selectedFiles.push(file);
+                    
+                    const url = URL.createObjectURL(blob);
+                    addPreviewElement(url, selectedFiles.length - 1, true);
+                    
+                    isRecording = false;
+                    closeCamera();
+                };
+                
+                mediaRecorder.start(200); // chunk every 200ms
+                isRecording = true;
+                
+                // Visual indicators
+                btnCore.classList.remove('w-14', 'h-14', 'rounded-full');
+                btnCore.classList.add('w-8', 'h-8', 'rounded');
+                indicator.classList.remove('hidden');
+                indicator.classList.add('flex');
+                
+                helpText.textContent = "Appuyez à nouveau pour couper l'enregistrement";
+                helpText.className = "text-xs font-bold text-red-500 mt-4 transition-all animate-pulse";
+            } else {
+                // STOP RECORDING
+                mediaRecorder.stop();
+                btnCore.classList.add('w-14', 'h-14', 'rounded-full');
+                btnCore.classList.remove('w-8', 'h-8', 'rounded');
+                indicator.classList.add('hidden');
+                indicator.classList.remove('flex');
+                
+                helpText.textContent = "Appuyez pour filmer";
+                helpText.className = "text-xs font-medium text-gray-500 mt-4 transition-all";
+            }
+        }
+
+        async function openCamera(facingMode) {
+            const modal = document.getElementById('camera-modal');
+            const video = document.getElementById('camera-video');
+            
+            // Reset state
+            setCaptureMode('photo');
+            isRecording = false;
+            document.getElementById('recording-indicator').classList.add('hidden');
+            document.getElementById('recording-indicator').classList.remove('flex');
+            
+            try {
+                if (currentStream) {
+                    currentStream.getTracks().forEach(track => track.stop());
+                }
+                
+                currentStream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: facingMode },
+                    audio: true // Add audio for video recordings
+                });
+                
+                video.srcObject = currentStream;
+                video.muted = true; // Mute local feedback to avoid echo
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            } catch (err) {
+                // if it failed because of audio, try just video! (some permissions might be denied for mic only)
+                try {
+                    currentStream = await navigator.mediaDevices.getUserMedia({
+                        video: { facingMode: facingMode }
+                    });
+                    video.srcObject = currentStream;
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                } catch(e) {
+                    alert("Erreur: Impossible d'accéder à la caméra/micro. Vérifiez les permissions.");
+                    console.error("Camera error:", e);
+                }
+            }
+        }
+
+        function closeCamera() {
+            if (isRecording && mediaRecorder) mediaRecorder.stop();
+            const modal = document.getElementById('camera-modal');
+            if (currentStream) {
+                currentStream.getTracks().forEach(track => track.stop());
+                currentStream = null;
+            }
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function takePhoto() {
+            const video = document.getElementById('camera-video');
+            const canvas = document.getElementById('camera-canvas');
+            
+            if(!video.videoWidth) return;
+            
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const ctx = canvas.getContext('2d');
+            
+            // Flash effect purely visual
+            video.style.opacity = '0';
+            setTimeout(() => video.style.opacity = '1', 100);
+            
+            // Draw current frame
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            canvas.toBlob(blob => {
+                if(!blob) return;
+                const file = new File([blob], `photo_${Date.now()}.jpg`, { type: 'image/jpeg' });
+                selectedFiles.push(file);
+                
+                const url = URL.createObjectURL(blob);
+                addPreviewElement(url, selectedFiles.length - 1, false);
+                
+                closeCamera();
+            }, 'image/jpeg', 0.9);
         }
     </script>
 </body>

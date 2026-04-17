@@ -17,6 +17,7 @@
 
     <!-- Tailwind Configuration -->
     <script src="js/tailwind-config.js"></script>
+    <script src="js/auth.js"></script>
 
     <!-- Custom CSS -->
     <style type="text/tailwindcss">
@@ -67,9 +68,8 @@
 
                 <!-- Auth Buttons -->
                 <div class="hidden md:flex items-center space-x-4">
-                    <a href="auth.html"
-                        class="text-gray-600 font-medium hover:text-primary transition-smooth">Connexion</a>
-                    <a href="auth.html" class="btn-primary">Inscription</a>
+                    <button onclick="AuthManager.showAuthModal('login')" class="text-gray-600 font-medium hover:text-primary transition-smooth">Connexion</button>
+                    <button onclick="AuthManager.showAuthModal('register')" class="btn-primary">Inscription</button>
                 </div>
 
                 <!-- Mobile menu button -->
@@ -81,14 +81,15 @@
             </div>
         </div>
 
-        <!-- Mobile Menu Panel -->
-        <div class="md:hidden hidden bg-white shadow-xl absolute w-full" id="mobile-menu">
+        <div class="md:hidden hidden bg-white shadow-xl absolute w-full z-50 border-t border-gray-200" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="index.html" class="block px-3 py-2 text-base font-medium text-primary">Accueil</a>
                 <a href="search.html"
                     class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-primary">Artisans</a>
-                <a href="auth.html"
-                    class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-primary">Connexion</a>
+                <button onclick="AuthManager.showAuthModal('login')"
+                    class="w-full text-left max-w-full block px-3 py-2 text-base font-medium text-gray-600 hover:text-primary">Connexion</button>
+                <button onclick="AuthManager.showAuthModal('register')"
+                    class="w-full text-left max-w-full block px-3 py-2 text-base font-medium text-primary hover:text-primary-dark">Inscription</button>
             </div>
         </div>
     </nav>
@@ -119,39 +120,39 @@
                     <div
                         class="flex-1 w-full flex items-center px-4 py-2 border-b md:border-b-0 md:border-r border-gray-200">
                         <i class="fa-solid fa-magnifying-glass text-gray-400 mr-3"></i>
-                        <input type="text" placeholder="Quel service recherchez-vous ?"
+                        <input type="text" id="main-search-input" placeholder="Quel service recherchez-vous ?"
                             class="w-full bg-transparent focus:outline-none text-gray-700">
                     </div>
                     <div
                         class="flex-1 w-full flex items-center px-4 py-2 border-b md:border-b-0 md:border-r border-gray-200">
                         <i class="fa-solid fa-location-dot text-gray-400 mr-3"></i>
-                        <input type="text" placeholder="Lieu (ex: Cotonou)"
+                        <input type="text" id="main-location-input" placeholder="Lieu (ex: Cotonou)"
                             class="w-full bg-transparent focus:outline-none text-gray-700">
                     </div>
-                    <a href="search.html"
-                        class="w-full md:w-auto mt-2 md:mt-0 btn-secondary rounded-full flex justify-center items-center">
+                    <button onclick="performSearch()"
+                        class="w-full md:w-auto mt-2 md:mt-0 btn-secondary rounded-full flex justify-center items-center px-8">
                         Rechercher
-                    </a>
+                    </button>
                 </div>
 
                 <!-- Quick Categories -->
                 <div class="mt-10 flex flex-wrap justify-center gap-4 text-sm font-medium">
-                    <a href="search.html" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-wrench mr-2 text-gray-400"></i>Plomberie</a>
-                    <a href="search.html" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-bolt mr-2 text-gray-400"></i>Électricité</a>
-                    <a href="search.html" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-chair mr-2 text-gray-400"></i>Menuiserie</a>
-                    <a href="search.html" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-paint-roller mr-2 text-gray-400"></i>Peinture</a>
-                    <a href="search.html" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-broom mr-2 text-gray-400"></i>Nettoyage</a>
-                    <a href="search.html" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-trowel-bricks mr-2 text-gray-400"></i>Maçonnerie</a>
-                    <a href="search.html" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-border-all mr-2 text-gray-400"></i>Carrelage</a>
-                    <a href="search.html" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-layer-group mr-2 text-gray-400"></i>Faux-plafond</a>
-                    <a href="search.html" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-snowflake mr-2 text-gray-400"></i>Climatisation</a>
-                    <a href="search.html" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-car-battery mr-2 text-gray-400"></i>Élec Auto</a>
-                    <a href="search.html" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-fire-burner mr-2 text-gray-400"></i>Soudure</a>
-                    <a href="search.html" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-scissors mr-2 text-gray-400"></i>Couture</a>
-                    <a href="search.html" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-spa mr-2 text-gray-400"></i>Coiffure</a>
-                    <a href="search.html" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-car mr-2 text-gray-400"></i>Mécanique</a>
-                    <a href="search.html" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-dharmachakra mr-2 text-gray-400"></i>Vulcanisateur</a>
-                    <a href="search.html" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-mobile-screen-button mr-2 text-gray-400"></i>Téléphone</a>
+                    <a href="search.html?category=Plomberie" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-wrench mr-2 text-gray-400"></i>Plomberie</a>
+                    <a href="search.html?category=Électricité" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-bolt mr-2 text-gray-400"></i>Électricité</a>
+                    <a href="search.html?category=Menuiserie" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-chair mr-2 text-gray-400"></i>Menuiserie</a>
+                    <a href="search.html?category=Peinture" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-paint-roller mr-2 text-gray-400"></i>Peinture</a>
+                    <a href="search.html?category=Nettoyage" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-broom mr-2 text-gray-400"></i>Nettoyage</a>
+                    <a href="search.html?category=Maçonnerie" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-trowel-bricks mr-2 text-gray-400"></i>Maçonnerie</a>
+                    <a href="search.html?category=Carrelage" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-border-all mr-2 text-gray-400"></i>Carrelage</a>
+                    <a href="search.html?category=Faux-plafond" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-layer-group mr-2 text-gray-400"></i>Faux-plafond</a>
+                    <a href="search.html?category=Climatisation" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-snowflake mr-2 text-gray-400"></i>Climatisation</a>
+                    <a href="search.html?category=Électricité+Auto" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-car-battery mr-2 text-gray-400"></i>Élec Auto</a>
+                    <a href="search.html?category=Soudure" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-fire-burner mr-2 text-gray-400"></i>Soudure</a>
+                    <a href="search.html?category=Couture" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-scissors mr-2 text-gray-400"></i>Couture</a>
+                    <a href="search.html?category=Coiffure" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-spa mr-2 text-gray-400"></i>Coiffure</a>
+                    <a href="search.html?category=Mécanique" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-car mr-2 text-gray-400"></i>Mécanique</a>
+                    <a href="search.html?category=Vulcanisateur" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-dharmachakra mr-2 text-gray-400"></i>Vulcanisateur</a>
+                    <a href="search.html?category=Téléphone" class="px-4 py-2 bg-white rounded-full text-gray-600 shadow-sm hover:shadow-md cursor-pointer transition-smooth border border-gray-100 hover:border-primary hover:text-primary"><i class="fa-solid fa-mobile-screen-button mr-2 text-gray-400"></i>Téléphone</a>
                 </div>
             </div>
         </div>
@@ -436,6 +437,12 @@
         document.getElementById('mobile-menu-btn').addEventListener('click', function () {
             document.getElementById('mobile-menu').classList.toggle('hidden');
         });
+
+        function performSearch() {
+            const query = document.getElementById('main-search-input').value;
+            const location = document.getElementById('main-location-input').value;
+            window.location.href = `search.html?query=${encodeURIComponent(query)}&location=${encodeURIComponent(location)}`;
+        }
 
         function toggleHeart(event, element) {
             event.stopPropagation();

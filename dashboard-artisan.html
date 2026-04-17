@@ -97,6 +97,10 @@
             </div>
             
             <div class="flex items-center space-x-6">
+                <a href="whatsapp-simulation.html" class="flex items-center bg-green-50 text-green-600 hover:bg-green-100 font-bold py-1.5 px-3 rounded-full text-xs transition-smooth shadow-sm border border-green-200">
+                    <i class="fa-brands fa-whatsapp text-lg mr-1.5"></i> Démo Bot
+                </a>
+                
                 <button class="relative text-gray-500 hover:text-primary transition-smooth">
                     <i class="fa-regular fa-bell text-xl"></i>
                     <span class="absolute top-0 right-0 -mt-1 -mr-1 bg-red-500 w-2.5 h-2.5 rounded-full border-2 border-white"></span>
@@ -347,6 +351,13 @@
         function updateStatus(id, status) {
             window.bookingManager.updateBookingStatus(id, status);
             renderBookings(); // Rafraichir le tableau
+            
+            // Alertes de démonstration pour le jury
+            if(status === 'confirmed') {
+                alert("✅ Réservation Acceptée ! \n\nL'information a été transmise au Bot ArtisanConnect. Le client vient de recevoir un message WhatsApp avec le lien pour régler l'acompte (Escrow).\n\nConsultez la démo WhatsApp pour voir le résultat.");
+            } else if (status === 'completed_by_artisan') {
+                alert("✅ Travail Terminé ! \n\nUne notification a été envoyée au client via WhatsApp pour valider la prestation et débloquer les fonds de l'Escrow.");
+            }
         }
 
         // Sidebar Toggle for Mobile

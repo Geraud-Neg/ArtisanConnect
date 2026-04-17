@@ -135,7 +135,7 @@
                 <section class="bg-white rounded-card shadow-sm border border-gray-100 p-6">
                     <h2 class="text-xl font-bold text-gray-900 mb-6 font-poppins">Mes prestations principales</h2>
                     
-                    <div class="space-y-4">
+                    <div class="space-y-4" id="artisan-services-list">
                         <!-- Service 1 -->
                         <div class="flex justify-between items-center pb-4 border-b border-gray-100">
                             <div>
@@ -176,7 +176,7 @@
                 <!-- Portfolio -->
                 <section class="bg-white rounded-card shadow-sm border border-gray-100 p-6">
                     <h2 class="text-xl font-bold text-gray-900 mb-4 font-poppins">Réalisations récentes (Portfolio)</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="artisan-portfolio-list">
                         <div class="group cursor-pointer">
                             <div class="overflow-hidden rounded-lg shadow-sm mb-2">
                                 <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Réalisation 1" class="w-full h-40 object-cover group-hover:scale-105 transition-smooth duration-300">
@@ -322,280 +322,77 @@
             <span class="block text-sm text-gray-500">Tarif horaire</span>
             <span id="artisan-price" class="font-bold text-gray-900">20 000 FCFA</span>
         </div>
-        <a href="booking.html" class="btn-primary px-8">Réserver</a>
+        <button onclick="goToBooking()" class="btn-primary px-8">Réserver</button>
     </div>
 
+    <!-- Scripts -->
+    <script src="js/auth.js"></script>
+    <script src="js/artisans-data.js"></script>
     <script>
-        const artisansData = {
-            '1': {
-                name: 'Marc Dubois',
-                job: 'Plombier Chauffagiste',
-                avatar: 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-                location: 'Intervient : Cotonou, Calavi, Porto-Novo',
-                price: '20 000 FCFA / hr',
-                about: `Bonjour ! Je suis Marc, plombier chauffagiste passionné. Avec plus de 8 ans d'expérience, j'interviens rapidement pour tous vos dépannages d'urgence, installations de sanitaires ou rénovations de salle de bain. Je mets un point d'honneur à fournir un travail soigné, respectueux des normes de sécurité, et au juste prix.`
+        // Data is now loaded from artisans-data.js
+        
+        const jobDataMap = {
+            'Plombier Chauffagiste': { keyword: 'plumbing,bathroom',
+                services: [ { title: 'Dépannage plomberie', desc: 'Recherche de fuite, dégorgement d\'évier...', formatPrice: true, unit: '/ heure' }, { title: 'Chauffe-eau', desc: 'Installation et raccordement.', price: '45 000 FCFA', unit: 'forfait', highlight: false }, { title: 'Rénovation SDB', desc: 'Étude et réfection de vos sanitaires.', price: 'Sur devis', highlight: true } ],
+                portfolio: ['Rénovation salle de bain', 'Installation chauffe-eau', 'Tuyauterie apparente']
             },
-            '2': {
-                name: 'Sarah K.',
-                job: 'Électricienne',
-                avatar: 'https://images.unsplash.com/photo-1601599561096-f87c95fff1e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                location: 'Intervient : Akpakpa, Cotonou',
-                price: 'Sur Devis',
-                about: `Bonjour ! Je suis Sarah. Électricienne qualifiée avec 5 ans d'expérience. Je suis spécialisée dans la remise aux normes électriques, le dépannage, et les installations domotiques modernes pour maisons et bureaux.`
+            'Électricienne': { keyword: 'electrician,wiring',
+                services: [ { title: 'Panne électrique', desc: 'Recherche de court-circuit.', formatPrice: true, unit: '/ heur' }, { title: 'Remise aux normes', desc: 'Nouveau tableau électrique.', price: 'Sur devis', highlight: true }, { title: 'Pose luminaires', desc: 'Appliques, interrupteurs.', price: '15 000 FCFA' } ],
+                portfolio: ['Câblage tableau', 'Spots LED encastrés', 'Fixation domotique']
             },
-            '3': {
-                name: 'Atelier Boni',
-                job: 'Menuiserie',
-                avatar: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                location: 'Intervient : Godomey',
-                price: 'Sur Devis',
-                about: `Bienvenue à l'Atelier Boni ! L'art du bois est notre passion depuis plus de 15 ans. Nous réalisons des meubles sur mesure, des dressings, et des charpentes solides pour sublimer votre intérieur.`
+            'Électricien': { keyword: 'electrician,wiring',
+                services: [ { title: 'Panne électrique', desc: 'Recherche de court-circuit.', formatPrice: true, unit: '/ heur' }, { title: 'Remise aux normes', desc: 'Nouveau tableau électrique.', price: 'Sur devis', highlight: true }, { title: 'Pose luminaires', desc: 'Appliques, interrupteurs.', price: '15 000 FCFA' } ],
+                portfolio: ['Câblage tableau', 'Spots LED encastrés', 'Fixation domotique']
             },
-            '4': {
-                name: 'Jean Peintre',
-                job: 'Peinture',
-                avatar: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                location: 'Intervient : Fidjrossè',
-                price: '15 000 FCFA / hr',
-                about: `Salut ! Je suis Jean, artisan peintre expérimenté. Je redonne vie à vos murs, intérieurs comme extérieurs, avec des finitions soignées et des peintures écologiques résistantes adaptées à vos goûts.`
+            'Menuiserie': { keyword: 'carpentry,wood',
+                services: [ { title: 'Meuble sur mesure', desc: 'Création de meubles bois.', price: 'Sur devis', highlight: true }, { title: 'Pose portes', desc: 'Ajustement et placement.', formatPrice: true }, { title: 'Charpente', desc: 'Renforcement du bois.', price: 'Dès 15 000 FCFA' } ],
+                portfolio: ['Dressing intégré', 'Porte sculptée', 'Charpente posée']
             },
-            '5': {
-                name: 'Paul L. Dépannage',
-                job: 'Débouchage & Réparation',
-                avatar: 'https://ui-avatars.com/api/?name=Paul+L&size=400&background=random',
-                location: 'Intervient : Calavi',
-                price: 'Sur Devis',
-                about: `Bonjour, je suis Paul L., expert en dépannage d'urgence et en débouchage d'installations avec 12 ans de métier. Intervention rapide pour minimiser les dégâts.`
+            'Peinture': { keyword: 'painter,paint',
+                services: [ { title: 'Enduit & Couches', desc: 'Préparation et finition.', formatPrice: true, unit: '/ m2' }, { title: 'Façade extérieure', desc: 'Peintures résistantes.', price: 'Sur devis', highlight: true }, { title: 'Déco murale', desc: 'Papier peint.', price: 'Dès 5 000 FCFA' } ],
+                portfolio: ['Chambre moderne', 'Façade ravalée', 'Stucco finition']
             },
-            '6': {
-                name: 'Société Eaux & Co',
-                job: 'Installation Sanitaire',
-                avatar: 'https://ui-avatars.com/api/?name=Eaux+Co&size=400&background=random',
-                location: 'Intervient : Akpakpa',
-                price: '15 000 FCFA / hr',
-                about: `Eaux & Co est une société reconnue dans toute la région d'Akpakpa. Nous sommes spécialisés dans les installations sanitaires complexes et offrons des garanties pièces et main-d'œuvre sur toutes nos interventions.`
+            'Maçon': { keyword: 'masonry,brick',
+                services: [ { title: 'Petit ouvrage', desc: 'Murets, rénovations.', formatPrice: true, unit: '/ jour' }, { title: 'Dalle de béton', desc: 'Coulage fondations.', price: 'Sur devis', highlight: true }, { title: 'Crépissage', desc: 'Enduit ciment.', price: 'Dès 10 000 FCFA' } ],
+                portfolio: ['Mur en agglos', 'Fondations coulées', 'Terrasse béton']
             },
-            '7': {
-                name: 'Bâtisseurs Sûrs',
-                job: 'Maçon',
-                avatar: 'https://ui-avatars.com/api/?name=Batisseurs+Surs&size=400&background=random',
-                location: 'Intervient : Cotonou (Haie Vive)',
-                price: 'Sur Devis',
-                about: `Experts en maçonnerie générale, nous réalisons vos projets de construction et de rénovation avec des fondations solides et un grand souci du détail.`
+            'Carreleur': { keyword: 'tiles,floor',
+                services: [ { title: 'Pose au sol', desc: 'Grès cérame, faïence.', formatPrice: true, unit: '/ m2' }, { title: 'Crédence cuisine', desc: 'Pose murale soignée.', price: 'Dès 20 000 FCFA' }, { title: 'Marbres', desc: 'Pose complexes.', price: 'Sur devis', highlight: true } ],
+                portfolio: ['Sols brillants', 'Mur salle de bain', 'Marbre posé']
             },
-            '8': {
-                name: 'Koffi Design',
-                job: 'Carreleur',
-                avatar: 'https://ui-avatars.com/api/?name=Koffi+Design&size=400&background=random',
-                location: 'Intervient : Akpakpa',
-                price: '3 000F / m2',
-                about: `Koffi s'occupe de la pose de tous types de revêtements de sol ou de mur. Mosaïques, faïences, ou marbre, je garantis un alignement parfait.`
+            'Technicien clim / froid': { keyword: 'hvac,ac',
+                services: [ { title: 'Entretien Clim', desc: 'Nettoyage des filtres.', formatPrice: true, unit: '/ unité' }, { title: 'Fuites gaz', desc: 'Recharge.', price: 'Sur devis', highlight: true }, { title: 'Pose Split', desc: 'Fixation.', price: '35 000 FCFA' } ],
+                portfolio: ['Entretien Split', 'Mesure frigorigène', 'Compresseur']
             },
-            '9': {
-                name: 'Plafonds Modernes',
-                job: 'Poseur de faux-plafond',
-                avatar: 'https://ui-avatars.com/api/?name=Plafonds+Modernes&size=400&background=random',
-                location: 'Intervient : Godomey',
-                price: 'Sur Devis',
-                about: `Société spécialisée dans les faux-plafonds suspendus, tendus ou en plâtre. L'éclairage encastré, c'est notre spécialité.`
+            'Coiffeur / Coiffeuse': { keyword: 'hairsalon,braids',
+                services: [ { title: 'Coupe classique', desc: 'Taille, rafraîchissement.', formatPrice: true }, { title: 'Tresses', desc: 'Nattes et extensions.', price: 'Dès 5 000 FCFA' }, { title: 'Soin complet', desc: 'Défrisage.', price: 'Sur devis', highlight: true } ],
+                portfolio: ['Coupe aux ciseaux', 'Nattes collées', 'Soin défrisant']
             },
-            '10': {
-                name: 'Climatisation Plus',
-                job: 'Technicien clim / froid',
-                avatar: 'https://ui-avatars.com/api/?name=Climatisation+Plus&size=400&background=random',
-                location: 'Intervient : Cotonou (Gbégamey)',
-                price: '10 000F / hr',
-                about: `L'entreprise qui rafraîchit vos étés et répare tous types de chambres froides ou de climatiseurs, entretien régulier et dépannage inclus.`
+            'Mécanicien auto / moto': { keyword: 'mechanic,garage',
+                services: [ { title: 'Diagnostic OBD', desc: 'Passage valise.', formatPrice: true }, { title: 'Révision simple', desc: 'Vidange, filtres.', price: 'Dès 20 000 FCFA' }, { title: 'Mécanique lourde', desc: 'Courroie, moteur.', price: 'Sur devis', highlight: true } ],
+                portfolio: ['Vidange', 'Test électronique', 'Freinage']
             },
-            '11': {
-                name: 'Auto-Élec Pro',
-                job: 'Électricien auto / moto',
-                avatar: 'https://ui-avatars.com/api/?name=Auto+Elec+Pro&size=400&background=random',
-                location: 'Intervient : Fidjrossè',
-                price: '7 000F / panne',
-                about: `Problème de démarrage ? Voyants allumés au tableau de bord ? J'interviens rapidement pour les soucis électriques sur votre véhicule à 2 ou 4 roues.`
+            'Réparateur téléphone': { keyword: 'smartphone,repair',
+                services: [ { title: 'Diagnostic pannes', desc: 'Test composants.', formatPrice: true }, { title: 'Écran', desc: 'Remplacement afficheur.', price: 'Sur devis', highlight: true }, { title: 'Batterie', desc: 'Accu standard.', price: '10 000 FCFA' } ],
+                portfolio: ['Remplacement écran', 'Soudure carte mère', 'Démontage boitier']
             },
-            '12': {
-                name: 'Fer & Forge',
-                job: 'Soudeur / Ferronnier',
-                avatar: 'https://ui-avatars.com/api/?name=Fer+Forge&size=400&background=random',
-                location: 'Intervient : Calavi (Kpota)',
-                price: 'Sur Devis',
-                about: `Portails, fenêtres, ou balcons, notre artisan soudeur forge et crée des structures robustes avec de belles finitions artistiques.`
+            'Couturier / Tailleur': { keyword: 'tailor,sewing',
+                services: [ { title: 'Retouches', desc: 'Ajustement express.', price: 'Dès 1 000 FCFA' }, { title: 'Confection sur mesure', desc: 'Haut / Bas complet.', formatPrice: true, highlight:true}, { title: 'Broderies', desc: 'Tenues festives.', price: 'Sur devis' } ],
+                portfolio: ['Couture machine', 'Pagne wax cousu', 'Broderie']
             },
-            '13': {
-                name: 'Couture Édition',
-                job: 'Couturier / Tailleur',
-                avatar: 'https://ui-avatars.com/api/?name=Couture+Edition&size=400&background=random',
-                location: 'Intervient : Maro-Militaire',
-                price: 'Sur Modèle',
-                about: `Donnez vie à vos tissus ! Création sur mesure d'ensembles tailleur, robes de soirées ou tenues traditionnelles à partir de vos modèles ou idées.`
+            'Soudeur / Ferronnier': { keyword: 'welding,metal',
+                services: [ { title: 'Petite soudure', desc: 'Fer Forgé repris.', formatPrice: true }, { title: 'Création Grilles', desc: 'Grilles sécurité.', price: 'Sur devis', highlight:true }, { title: 'Portails', desc: 'Portail coullissant.', price: 'Sur devis' } ],
+                portfolio: ['Étincelles', 'Grilles forgées', 'Charpente soudée']
             },
-            '14': {
-                name: 'Salon Beauté',
-                job: 'Coiffeur / Coiffeuse',
-                avatar: 'https://ui-avatars.com/api/?name=Salon+Beaute&size=400&background=random',
-                location: 'Intervient : Saint-Michel',
-                price: 'Dès 2 000F',
-                about: `Faites-vous chouchouter par nos experts visagistes. Tresses, défrisages, ou simples coupes d'entretien, avec massage crânien à l'appui.`
-            },
-            '15': {
-                name: 'Garage Central',
-                job: 'Mécanicien auto / moto',
-                avatar: 'https://ui-avatars.com/api/?name=Garage+Central&size=400&background=random',
-                location: 'Intervient : Agla',
-                price: '5 000F / diagnostic',
-                about: `Spécialiste de la réparation automobile : de l'entretien courant (vidange) aux lourdes réparations moteurs pour motos et voitures.`
-            },
-            '16': {
-                name: 'Pneus Rapides',
-                job: 'Vulcanisateur',
-                avatar: 'https://ui-avatars.com/api/?name=Pneus+Rapides&size=400&background=random',
-                location: 'Intervient : Étoile Rouge',
-                price: '500F / Patch',
-                about: `Une crevaison ? Pas de panique. Pneus Rapides colmate et répare ou regonfle toute roue 24h sur 24.`
-            },
-            '17': {
-                name: 'Tech Réparation',
-                job: 'Réparateur téléphone',
-                avatar: 'https://ui-avatars.com/api/?name=Tech+Reparation&size=400&background=random',
-                location: 'Intervient : Dantokpa',
-                price: 'Diagnostic gratuit',
-                about: `Spécialiste du microcomposant ! Qu'il s'agisse d'un écran cassé, d'une batterie morte ou un bug d'affichage sur smartphone/tablette, c'est mon rôle.`
-            },
-            '18': {
-                name: 'Élec-Rapide',
-                job: 'Électricien',
-                avatar: 'https://ui-avatars.com/api/?name=Élec-Rapide&size=400&background=random',
-                location: 'Intervient : Cotonou',
-                price: '10 000F / hr',
-                about: `Dépannage rapide toutes pannes électriques, mise aux normes et raccordements.`
-            },
-            '19': {
-                name: 'Bois de Rêve',
-                job: 'Menuiserie',
-                avatar: 'https://ui-avatars.com/api/?name=Bois+de+Rêve&size=400&background=random',
-                location: 'Intervient : Calavi',
-                price: 'Sur Devis',
-                about: `Création de meubles sur demande, aménagements intérieurs et placards sur mesure.`
-            },
-            '20': {
-                name: 'Couleurs Magiques',
-                job: 'Peinture',
-                avatar: 'https://ui-avatars.com/api/?name=Couleurs+Magiques&size=400&background=random',
-                location: 'Intervient : Agla',
-                price: '5 000F / m2',
-                about: `Peinture bâtiment et décoration intérieure, devis rapide et travail soigné garanti.`
-            },
-            '21': {
-                name: 'Propre Vite',
-                job: 'Nettoyage',
-                avatar: 'https://ui-avatars.com/api/?name=Propre+Vite&size=400&background=random',
-                location: 'Intervient : Cotonou (Haie Vive)',
-                price: 'Dès 10 000F',
-                about: `Nettoyage et entretien de bureaux, remise en état après chantier et ménage courant.`
-            },
-            '22': {
-                name: 'Maison Éclatante',
-                job: 'Nettoyage',
-                avatar: 'https://ui-avatars.com/api/?name=Maison+Éclatante&size=400&background=random',
-                location: 'Intervient : Saint-Michel',
-                price: '15 000F / jour',
-                about: `Services de grand nettoyage et pressing à domicile pour un intérieur éclatant.`
-            },
-            '23': {
-                name: 'Constructions Béton',
-                job: 'Maçon',
-                avatar: 'https://ui-avatars.com/api/?name=Constructions+Béton&size=400&background=random',
-                location: 'Intervient : Akpakpa',
-                price: 'Sur Devis',
-                about: `Entreprise générale de maçonnerie, fondations, murs de soutènement et dalles.`
-            },
-            '24': {
-                name: 'Marbres & Dalles',
-                job: 'Carreleur',
-                avatar: 'https://ui-avatars.com/api/?name=Marbres+Dalles&size=400&background=random',
-                location: 'Intervient : Fidjrossè',
-                price: '4 000F / m2',
-                about: `Spécialiste de la pose de marbre, travertin, grès cérame et faïence murale.`
-            },
-            '25': {
-                name: 'Déco-Plafond',
-                job: 'Poseur de faux-plafond',
-                avatar: 'https://ui-avatars.com/api/?name=Déco-Plafond&size=400&background=random',
-                location: 'Intervient : Cotonou',
-                price: 'Sur Devis',
-                about: `Plafonds tendus, spots encastrés, et cloisons pour maisons et entreprises.`
-            },
-            '26': {
-                name: 'Froid Express',
-                job: 'Technicien clim / froid',
-                avatar: 'https://ui-avatars.com/api/?name=Froid+Express&size=400&background=random',
-                location: 'Intervient : Godomey',
-                price: '8 000F / hr',
-                about: `Maintenance globale et nettoyage de vos splits, chambres froides et frigos.`
-            },
-            '27': {
-                name: 'Garage Auto-Éclair',
-                job: 'Électricien auto / moto',
-                avatar: 'https://ui-avatars.com/api/?name=Auto-Éclair&size=400&background=random',
-                location: 'Intervient : Calavi',
-                price: '10 000F',
-                about: `Diagnostic rapide, experts en électronique embarquée, capteurs et pannes moteurs électriques.`
-            },
-            '28': {
-                name: 'Métal-Pro',
-                job: 'Soudeur / Ferronnier',
-                avatar: 'https://ui-avatars.com/api/?name=Métal-Pro&size=400&background=random',
-                location: 'Intervient : Agla',
-                price: 'Sur devis',
-                about: `Réalisation sur mesure : grilles de sécurité, portails coulissants, mezzanines.`
-            },
-            '29': {
-                name: 'Fils & Modes',
-                job: 'Couturier / Tailleur',
-                avatar: 'https://ui-avatars.com/api/?name=Fils+Modes&size=400&background=random',
-                location: 'Intervient : Maro-Militaire',
-                price: 'Sur modèle',
-                about: `Création de design unique, spécialisés dans le pagne africain, bazin et wax de tous genres.`
-            },
-            '30': {
-                name: 'Afro-Style',
-                job: 'Coiffeur / Coiffeuse',
-                avatar: 'https://ui-avatars.com/api/?name=Afro-Style&size=400&background=random',
-                location: 'Intervient : Étoile Rouge',
-                price: 'Dès 3000F',
-                about: `Tresses, nattes collées, crochet braids et entretien des cheveux afro et défrisés.`
-            },
-            '31': {
-                name: 'Diagnostic Auto',
-                job: 'Mécanicien auto / moto',
-                avatar: 'https://ui-avatars.com/api/?name=Diagnostic+Auto&size=400&background=random',
-                location: 'Intervient : Cotonou',
-                price: '15000F',
-                about: `Équipé des dernières sondes ODB. Passage à la valise auto, effacement de voyants, mécanique.`
-            },
-            '32': {
-                name: 'Roues Secours',
-                job: 'Vulcanisateur',
-                avatar: 'https://ui-avatars.com/api/?name=Roues+Secours&size=400&background=random',
-                location: 'Intervient : Akpakpa',
-                price: '500F',
-                about: `Intervention immédiate 7j/7 pour crevaisons, remplacement et centrage de vos roues ou pneux.`
-            },
-            '33': {
-                name: 'Mobile Doc',
-                job: 'Réparateur téléphone',
-                avatar: 'https://ui-avatars.com/api/?name=Mobile+Doc&size=400&background=random',
-                location: 'Intervient : Gbégamey',
-                price: 'Devis',
-                about: `Expert iPhone, Samsung, Xiaomi. Remplacement tactiles, batteries, nappes et récupération de données.`
+            'Nettoyage': { keyword: 'cleaning,vacuum',
+                services: [ { title: 'Ménage régulier', desc: 'Sol et poussière.', formatPrice: true }, { title: 'Fin chantier', desc: 'Remise au neuf.', price: 'Sur devis', highlight:true }, { title: 'Vitres', desc: 'Baies et fenêtres.', price: 'Dès 5000F' } ],
+                portfolio: ['Nettoyage moquette', 'Aspirateur puissant', 'Vitres propres']
             }
         };
 
         window.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
-            const artisanId = urlParams.get('id');
+            const artisanId = urlParams.get('id') || '1';
             const data = artisansData[artisanId];
             
             if (data) {
@@ -611,6 +408,59 @@
                 }
                 if (document.getElementById('artisan-price')) document.getElementById('artisan-price').textContent = data.price;
                 if (document.getElementById('page-title')) document.getElementById('page-title').textContent = `Profil Artisan - ${data.name}`;
+
+                // --- DYNAMIC RENDERING ---
+                const mapping = jobDataMap[data.job] || {
+                    keyword: 'worker,tools',
+                    services: [
+                        { title: 'Intervention sur site', desc: 'Déplacement et prestation.', formatPrice: true },
+                        { title: 'Maintenance', desc: 'Entretien ponctuel.', price: 'Dès 10 000 FCFA' },
+                        { title: 'Grand Projet', desc: 'Devis personnalisé.', price: 'Sur devis', highlight: true }
+                    ],
+                    portfolio: ['Mission effectuée', 'Chantier en cours', 'Résultat final']
+                };
+
+                // Inject Services
+                const servicesEl = document.getElementById('artisan-services-list');
+                if (servicesEl) {
+                    servicesEl.innerHTML = '';
+                    mapping.services.forEach(srv => {
+                        let fPrice = srv.formatPrice ? data.price : srv.price;
+                        let fUnit = srv.unit || '';
+                        if (srv.formatPrice) {
+                            const pts = data.price.split('/');
+                            fPrice = pts[0].trim();
+                            if(pts[1]) fUnit = '/' + pts[1].trim();
+                        }
+                        const badge = srv.highlight ? 
+                            `<span class="bg-orange-100 text-secondary px-3 py-1 text-sm font-bold rounded-full">${fPrice}</span>` : 
+                            `<span class="block font-bold text-gray-900 text-lg">${fPrice}</span><span class="text-xs text-gray-400">${fUnit}</span>`;
+                        servicesEl.insertAdjacentHTML('beforeend', `
+                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 border-b border-gray-100 gap-2">
+                                <div><h4 class="font-bold text-gray-800">${srv.title}</h4><p class="text-sm text-gray-500 mt-1">${srv.desc}</p></div>
+                                <div class="sm:text-right shrink-0">${badge}</div>
+                            </div>
+                        `);
+                    });
+                }
+
+                // Inject Portfolio with matching thematic images
+                const portfolioEl = document.getElementById('artisan-portfolio-list');
+                if (portfolioEl) {
+                    portfolioEl.innerHTML = '';
+                    mapping.portfolio.forEach((title, idx) => {
+                        const imgUrl = `https://loremflickr.com/400/300/${mapping.keyword}/all?random=${idx+1}`;
+                        portfolioEl.insertAdjacentHTML('beforeend', `
+                            <div class="group cursor-pointer">
+                                <div class="overflow-hidden rounded-lg shadow-sm mb-2">
+                                    <img src="${imgUrl}" alt="${title}" class="w-full h-40 object-cover group-hover:scale-105 transition-smooth duration-300">
+                                </div>
+                                <h4 class="font-bold text-gray-900 text-sm group-hover:text-primary transition-smooth">${title}</h4>
+                                <p class="text-xs text-gray-500 line-clamp-2 mt-1">Exemple de travail réalisé par un(e) ${data.job}</p>
+                            </div>
+                        `);
+                    });
+                }
             }
         });
 
@@ -642,15 +492,25 @@
         function goToBooking() {
             const urlParams = new URLSearchParams(window.location.search);
             const artisanId = urlParams.get('id') || '1';
+            const data = artisansData[artisanId];
             
             const bookingData = {
                 artisanId: artisanId,
                 date: selectedDateText,
                 time: document.getElementById('booking-time').value,
-                service: document.getElementById('booking-problem').value || 'Service général'
+                service: document.getElementById('booking-problem').value || 'Service général',
+                artisanName: data ? data.name : 'Marc Dubois',
+                artisanJob: data ? data.job : 'Plombier',
+                artisanAvatar: data ? data.avatar : '',
+                artisanPrice: data ? data.price : 'Sur Devis'
             };
             
             sessionStorage.setItem('current_booking', JSON.stringify(bookingData));
+            
+            if (!AuthManager.requireAuth('booking.html')) {
+                return; // Redirige vers auth si non connecté
+            }
+            
             window.location.href = 'booking.html';
         }
 

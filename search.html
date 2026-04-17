@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="js/tailwind-config.js"></script>
+    <script src="js/auth.js"></script>
     <style type="text/tailwindcss">
         html { scroll-behavior: smooth; }
         body { background-color: theme('colors.background'); }
@@ -42,10 +43,10 @@
                 <div class="hidden md:flex flex-1 max-w-2xl mx-8">
                     <!-- Global Search Bar in Nav -->
                     <div class="flex w-full">
-                        <input type="text" placeholder="Métier, service, nom..." class="w-full px-4 py-2 border border-r-0 border-gray-300 rounded-l-full focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-sm">
+                        <input type="text" id="nav-search-input" placeholder="Métier, service, nom..." class="w-full px-4 py-2 border border-r-0 border-gray-300 rounded-l-full focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-sm">
                         <div class="w-px bg-gray-300"></div>
-                        <input type="text" placeholder="Lieu" class="w-1/3 px-4 py-2 border border-l-0 border-gray-300 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-sm">
-                        <button class="bg-primary hover:bg-primary-dark text-white px-6 rounded-r-full transition-smooth">
+                        <input type="text" id="nav-location-input" placeholder="Lieu" class="w-1/3 px-4 py-2 border border-l-0 border-gray-300 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-sm">
+                        <button onclick="performNavSearch()" class="bg-primary hover:bg-primary-dark text-white px-6 rounded-r-full transition-smooth">
                             <i class="fa-solid fa-search"></i>
                         </button>
                     </div>
@@ -53,10 +54,9 @@
 
                 <div class="hidden md:flex items-center space-x-6">
                     <a href="index.html" class="text-gray-600 font-medium hover:text-primary transition-smooth">Accueil</a>
-                    <div class="flex items-center space-x-2 border-l border-gray-200 pl-6">
-                        <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden border border-gray-300 cursor-pointer">
-                            <img src="https://ui-avatars.com/api/?name=User&background=2E6DA4&color=fff" alt="User">
-                        </div>
+                    <div class="flex items-center space-x-4 border-l border-gray-200 pl-6">
+                        <button onclick="AuthManager.showAuthModal('login')" class="text-gray-600 font-medium hover:text-primary transition-smooth">Connexion</button>
+                        <button onclick="AuthManager.showAuthModal('register')" class="btn-primary">Inscription</button>
                     </div>
                 </div>
 
@@ -83,7 +83,8 @@
                 <!-- Links -->
                 <div class="border-t border-gray-100 pt-4 space-y-2">
                     <a href="index.html" class="block py-2 text-base font-medium text-gray-600 hover:text-primary">Accueil</a>
-                    <a href="dashboard-client.html" class="block py-2 text-base font-medium text-gray-600 hover:text-primary">Mon profil</a>
+                    <button onclick="AuthManager.showAuthModal('login')" class="w-full text-left block py-2 text-base font-medium text-gray-600 hover:text-primary">Connexion</button>
+                    <button onclick="AuthManager.showAuthModal('register')" class="w-full text-left block py-2 text-base font-medium text-primary hover:text-primary-dark">Inscription</button>
                 </div>
             </div>
         </div>
@@ -107,75 +108,75 @@
                 <div class="bg-white rounded-card shadow-sm border border-gray-100 p-6 sticky top-6">
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-lg font-bold font-poppins text-gray-900">Filtres</h3>
-                        <button class="text-sm text-primary hover:underline">Réinitialiser</button>
+                        <button id="reset-filters" class="text-sm text-primary hover:underline">Réinitialiser</button>
                     </div>
 
                     <!-- Category Filter -->
                     <div class="mb-6">
                         <h4 class="font-semibold text-gray-700 text-sm mb-3">Catégories</h4>
-                        <div class="space-y-2 max-h-48 overflow-y-auto pr-2">
+                        <div class="space-y-2 max-h-48 overflow-y-auto pr-2" id="category-filters">
                             <label class="flex items-center">
-                                <input type="checkbox" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary" checked>
+                                <input type="checkbox" value="Plomberie" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
                                 <span class="ml-2 text-sm text-gray-600">Plomberie <span class="text-xs text-gray-400">(45)</span></span>
                             </label>
                             <label class="flex items-center">
-                                <input type="checkbox" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
+                                <input type="checkbox" value="Électricité" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
                                 <span class="ml-2 text-sm text-gray-600">Électricité <span class="text-xs text-gray-400">(32)</span></span>
                             </label>
                             <label class="flex items-center">
-                                <input type="checkbox" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
+                                <input type="checkbox" value="Menuiserie" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
                                 <span class="ml-2 text-sm text-gray-600">Menuiserie <span class="text-xs text-gray-400">(28)</span></span>
                             </label>
                             <label class="flex items-center">
-                                <input type="checkbox" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
+                                <input type="checkbox" value="Peinture" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
                                 <span class="ml-2 text-sm text-gray-600">Peinture <span class="text-xs text-gray-400">(15)</span></span>
                             </label>
                             <label class="flex items-center">
-                                <input type="checkbox" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
+                                <input type="checkbox" value="Nettoyage" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
                                 <span class="ml-2 text-sm text-gray-600">Nettoyage <span class="text-xs text-gray-400">(50)</span></span>
                             </label>
                             <label class="flex items-center">
-                                <input type="checkbox" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
+                                <input type="checkbox" value="Maçonnerie" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
                                 <span class="ml-2 text-sm text-gray-600">Maçonnerie <span class="text-xs text-gray-400">(41)</span></span>
                             </label>
                             <label class="flex items-center">
-                                <input type="checkbox" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
+                                <input type="checkbox" value="Carrelage" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
                                 <span class="ml-2 text-sm text-gray-600">Carrelage <span class="text-xs text-gray-400">(19)</span></span>
                             </label>
                             <label class="flex items-center">
-                                <input type="checkbox" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
+                                <input type="checkbox" value="Faux-plafond" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
                                 <span class="ml-2 text-sm text-gray-600">Faux-plafond <span class="text-xs text-gray-400">(12)</span></span>
                             </label>
                             <label class="flex items-center">
-                                <input type="checkbox" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
+                                <input type="checkbox" value="Climatisation" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
                                 <span class="ml-2 text-sm text-gray-600">Climatisation/Froid <span class="text-xs text-gray-400">(24)</span></span>
                             </label>
                             <label class="flex items-center">
-                                <input type="checkbox" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
+                                <input type="checkbox" value="Électricité Auto" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
                                 <span class="ml-2 text-sm text-gray-600">Électricité Auto/Moto <span class="text-xs text-gray-400">(37)</span></span>
                             </label>
                             <label class="flex items-center">
-                                <input type="checkbox" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
+                                <input type="checkbox" value="Soudure" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
                                 <span class="ml-2 text-sm text-gray-600">Soudure/Ferronnerie <span class="text-xs text-gray-400">(18)</span></span>
                             </label>
                             <label class="flex items-center">
-                                <input type="checkbox" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
+                                <input type="checkbox" value="Couture" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
                                 <span class="ml-2 text-sm text-gray-600">Couture/Tailleurs <span class="text-xs text-gray-400">(82)</span></span>
                             </label>
                             <label class="flex items-center">
-                                <input type="checkbox" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
+                                <input type="checkbox" value="Coiffure" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
                                 <span class="ml-2 text-sm text-gray-600">Coiffure/Esthétique <span class="text-xs text-gray-400">(105)</span></span>
                             </label>
                             <label class="flex items-center">
-                                <input type="checkbox" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
+                                <input type="checkbox" value="Mécanique" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
                                 <span class="ml-2 text-sm text-gray-600">Mécanique Auto/Moto <span class="text-xs text-gray-400">(56)</span></span>
                             </label>
                             <label class="flex items-center">
-                                <input type="checkbox" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
+                                <input type="checkbox" value="Vulcanisateur" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
                                 <span class="ml-2 text-sm text-gray-600">Vulcanisation <span class="text-xs text-gray-400">(31)</span></span>
                             </label>
                             <label class="flex items-center">
-                                <input type="checkbox" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
+                                <input type="checkbox" value="Téléphone" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
                                 <span class="ml-2 text-sm text-gray-600">Réparation Téléphone <span class="text-xs text-gray-400">(89)</span></span>
                             </label>
                         </div>
@@ -186,10 +187,10 @@
                     <!-- Price Filter -->
                     <div class="mb-6">
                         <h4 class="font-semibold text-gray-700 text-sm mb-3">Tarif horaire max (FCFA)</h4>
-                        <input type="range" min="5000" max="50000" value="25000" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary">
+                        <input type="range" id="price-range" min="0" max="50000" step="5000" value="50000" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary">
                         <div class="flex justify-between text-xs text-gray-500 mt-2">
-                            <span>5 000</span>
-                            <span class="font-bold text-gray-700">25 000</span>
+                            <span>0</span>
+                            <span id="price-value" class="font-bold text-gray-700">50 000</span>
                             <span>50 000+</span>
                         </div>
                     </div>
@@ -199,9 +200,9 @@
                     <!-- Rating Filter -->
                     <div class="mb-6">
                         <h4 class="font-semibold text-gray-700 text-sm mb-3">Note minimale</h4>
-                        <div class="space-y-2">
+                        <div class="space-y-2" id="rating-filters">
                             <label class="flex items-center cursor-pointer">
-                                <input type="radio" name="rating" class="form-radio text-primary focus:ring-primary border-gray-300">
+                                <input type="radio" name="rating" value="5" class="form-radio text-primary focus:ring-primary border-gray-300">
                                 <span class="ml-2 flex items-center text-sm text-gray-600">
                                     <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
                                     <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
@@ -212,7 +213,7 @@
                                 </span>
                             </label>
                             <label class="flex items-center cursor-pointer">
-                                <input type="radio" name="rating" class="form-radio text-primary focus:ring-primary border-gray-300" checked>
+                                <input type="radio" name="rating" value="4" class="form-radio text-primary focus:ring-primary border-gray-300" checked>
                                 <span class="ml-2 flex items-center text-sm text-gray-600">
                                     <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
                                     <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
@@ -223,7 +224,7 @@
                                 </span>
                             </label>
                             <label class="flex items-center cursor-pointer">
-                                <input type="radio" name="rating" class="form-radio text-primary focus:ring-primary border-gray-300">
+                                <input type="radio" name="rating" value="3" class="form-radio text-primary focus:ring-primary border-gray-300">
                                 <span class="ml-2 flex items-center text-sm text-gray-600">
                                     <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
                                     <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
@@ -232,6 +233,10 @@
                                     <i class="fa-solid fa-star text-gray-300 text-xs"></i>
                                     <span class="ml-1">3.0 et plus</span>
                                 </span>
+                            </label>
+                            <label class="flex items-center cursor-pointer">
+                                <input type="radio" name="rating" value="0" class="form-radio text-primary focus:ring-primary border-gray-300">
+                                <span class="ml-2 text-sm text-gray-600">Tous les avis</span>
                             </label>
                         </div>
                     </div>
@@ -245,917 +250,30 @@
                 
                 <!-- Results Header -->
                 <div class="flex flex-col sm:flex-row justify-between items-center mb-6">
-                    <h2 class="text-xl font-bold text-gray-900 mb-4 sm:mb-0">45 artisans trouvés pour "Plomberie"</h2>
+                    <h2 id="results-count" class="text-xl font-bold text-gray-900 mb-4 sm:mb-0">Recherche d'artisans...</h2>
                     
                     <div class="flex items-center space-x-2">
                         <label class="text-sm text-gray-500">Trier par:</label>
-                        <select class="border border-gray-300 rounded-md py-1.5 px-3 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary bg-white">
-                            <option>Pertinence</option>
-                            <option>Mieux notés</option>
-                            <option>Prix croissant</option>
-                            <option>Proximité</option>
+                        <select id="sort-select" class="border border-gray-300 rounded-md py-1.5 px-3 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary bg-white">
+                            <option value="relevance">Pertinence</option>
+                            <option value="rating">Mieux notés</option>
+                            <option value="price-asc">Prix croissant</option>
+                            <option value="price-desc">Prix décroissant</option>
                         </select>
                     </div>
                 </div>
 
                 <!-- Active filters tags -->
-                <div class="flex flex-wrap gap-2 mb-6">
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-primary">
-                        Plomberie
-                        <button class="ml-1.5 text-primary hover:text-primary-dark focus:outline-none"><i class="fa-solid fa-times"></i></button>
-                    </span>
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-primary">
-                        Cotonou
-                        <button class="ml-1.5 text-primary hover:text-primary-dark focus:outline-none"><i class="fa-solid fa-times"></i></button>
-                    </span>
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-primary">
-                        4.0+ Étoiles
-                        <button class="ml-1.5 text-primary hover:text-primary-dark focus:outline-none"><i class="fa-solid fa-times"></i></button>
-                    </span>
+                <div id="active-tags" class="flex flex-wrap gap-2 mb-6">
+                    <!-- Dynamic Tags -->
                 </div>
 
                 <!-- Results Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    
-                    <!-- Card 1 -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=1'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="https://images.unsplash.com/photo-1585704032915-c3400ca199e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Plombier" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Marc Dubois</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.9</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Plombier Chauffagiste</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Cotonou (à 2km)
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">20 000F / hr</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded"><i class="fa-regular fa-calendar-check mr-1"></i>Dispo demain</span>
-                            </div>
-                        </div>
-                    </div>
+                <div id="artisans-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Dynamic Cards -->
+                </div>
 
-                    <!-- Card 2 -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=5'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <div class="absolute inset-0 bg-gray-300 flex items-center justify-center text-gray-500">
-                                <i class="fa-solid fa-image text-3xl opacity-50"></i>
-                            </div>
-                            <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Plombier" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-solid fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Paul L. Dépannage</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.5</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Débouchage & Réparation</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Calavi (à 12km)
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">Sur Devis</span>
-                                <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-semibold rounded">Dispo en 48h</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 3 -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=6'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="https://images.unsplash.com/photo-1585704032915-c3400ca199e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Plombier" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                            <!-- Badge -->
-                            <div class="absolute bottom-2 left-2 bg-gradient-to-r from-yellow-400 to-yellow-600 text-white text-[10px] font-bold px-2 py-1 rounded shadow">
-                                <i class="fa-solid fa-crown mr-1"></i> Top Pro
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Société Eaux & Co</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.8</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Installation Sanitaire</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Akpakpa (à 5km)
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">15 000F / hr</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded"><i class="fa-solid fa-bolt text-yellow-500 mr-1"></i>Urgence 24/7</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Card 4 (Maçon) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=7'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Maçon" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Bâtisseurs Sûrs</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.7</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Maçon</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Cotonou (Haie Vive)
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">Sur Devis</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Dispo</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 5 (Carreleur) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=8'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Carreleur" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Koffi Design</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.6</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Carreleur</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Akpakpa
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">3 000F / m2</span>
-                                <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-semibold rounded">En mission</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 6 (Faux-plafond) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=9'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="assets/plafond_img.png" alt="Faux plafond" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Plafonds Modernes</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.8</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Poseur de faux-plafond</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Godomey
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">Sur Devis</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Dispo demain</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 7 (Clim) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=10'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="assets/clim_img.png" alt="Climatisation" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Climatisation Plus</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">5.0</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Technicien clim / froid</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Cotonou (Gbégamey)
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">10 000F / hr</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Dispo ce soir</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 8 (Elec Auto) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=11'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Auto-Elec" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Auto-Élec Pro</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.4</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Électricien auto / moto</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Fidjrossè
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">7 000F / panne</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Rapide</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 9 (Soudeur) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=12'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="assets/soudeur_img.png" alt="Soudeur" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Fer & Forge</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.9</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Soudeur / Ferronnier</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Calavi (Kpota)
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">Sur Devis</span>
-                                <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-semibold rounded">L-V</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 10 (Couturier) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=13'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tailleur" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Couture Édition</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">5.0</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Couturier / Tailleur</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Maro-Militaire
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">Sur Modèle</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Dispo</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 11 (Coiffeur) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=14'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Coiffure" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Salon Beauté</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.8</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Coiffeur / Coiffeuse</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Saint-Michel
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">Dès 2 000F</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Sans rdv</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 12 (Mécanicien) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=15'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Mechanic" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Garage Central</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.6</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Mécanicien auto / moto</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Agla
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">Diagnosis: 5 000F</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Ouvert</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 13 (Vulcanisateur) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=16'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="https://images.unsplash.com/photo-1578844251758-2f71da64c96f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tires" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Pneus Rapides</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.5</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Vulcanisateur</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Étoile Rouge
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">500F / Patch</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Urgences 24/7</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 14 (Téléphone) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=17'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="assets/phone_img.png" alt="Tech" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Tech Réparation</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.9</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Réparateur téléphone</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Dantokpa
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">Diagnostic gratuit</span>
-                                <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-semibold rounded">En différé</span>
-                            </div>
-                        </div>
-                    </div>
-                
-                    <!-- Card 2 (Électricienne) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=2'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Électricienne" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Sarah K.</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.4</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Électricienne</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Akpakpa, Cotonou
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">Sur Devis</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Dispo</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 3 (Menuiserie) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=3'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="assets/carpentry_img.png" alt="Menuiserie" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Atelier Boni</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.9</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Menuiserie</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Godomey
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">Sur Devis</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Ouvert</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 4 (Peinture) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=4'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Peinture" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Jean Peintre</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.5</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Peinture</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Fidjrossè
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">15 000F / hr</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Aujourd'hui</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 18 (Électricien) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=18'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Électricien" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Élec-Rapide</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.7</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Électricien</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Cotonou
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">10 000F / hr</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Dispo</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 19 (Menuiserie) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=19'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="https://images.unsplash.com/photo-1452860606245-08befc0ff44b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Menuiserie" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Bois de Rêve</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.7</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Menuiserie</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Calavi
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">Sur Devis</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">En semaine</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 20 (Peinture) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=20'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Peinture" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Couleurs Magiques</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.6</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Peinture</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Agla
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">5 000F / m2</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Sur rdv</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 21 (Nettoyage) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=21'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="assets/cleaning_img.png" alt="Nettoyage" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Propre Vite</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.6</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Nettoyage</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Cotonou (Haie Vive)
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">Dès 10 000F</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Dispo</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 22 (Nettoyage) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=22'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Nettoyage" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Maison Éclatante</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.9</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Nettoyage</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Saint-Michel
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">15 000F / jour</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Urgences</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 23 (Maçon) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=23'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Maçon" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Constructions Béton</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.8</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Maçon</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Akpakpa
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">Sur Devis</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Pro</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 24 (Carreleur) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=24'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Carreleur" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Marbres & Dalles</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.9</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Carreleur</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Fidjrossè
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">4 000F / m2</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Dispo</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 25 (Poseur de faux-plafond) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=25'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="assets/plafond_img.png" alt="Poseur de faux-plafond" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Déco-Plafond</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.4</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Poseur de faux-plafond</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Cotonou
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">Sur Devis</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Devis Gratuit</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 26 (Technicien clim / froid) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=26'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="assets/clim_img.png" alt="Technicien clim / froid" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Froid Express</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.8</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Technicien clim / froid</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Godomey
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">8 000F / hr</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Dispo 24/7</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 27 (Électricien auto / moto) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=27'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Électricien auto / moto" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Garage Auto-Éclair</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.7</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Électricien auto / moto</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Calavi
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">10000F</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Rapide</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 28 (Soudeur / Ferronnier) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=28'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="assets/soudeur_img.png" alt="Soudeur / Ferronnier" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Métal-Pro</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.8</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Soudeur / Ferronnier</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Agla
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">Sur devis</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Ouvert</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 29 (Couturier / Tailleur) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=29'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Couturier / Tailleur" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Fils & Modes</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.7</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Couturier / Tailleur</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Maro-Militaire
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">Sur modèle</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Sur rdv</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 30 (Coiffeur / Coiffeuse) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=30'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Coiffeur / Coiffeuse" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Afro-Style</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.9</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Coiffeur / Coiffeuse</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Étoile Rouge
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">Dès 3000F</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Fermé</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 31 (Mécanicien auto / moto) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=31'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Mécanicien auto / moto" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Diagnostic Auto</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.6</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Mécanicien auto / moto</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Cotonou
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">15000F</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Expert</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 32 (Vulcanisateur) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=32'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="https://images.unsplash.com/photo-1578844251758-2f71da64c96f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Vulcanisateur" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Roues Secours</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.8</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Vulcanisateur</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Akpakpa
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">500F</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">24/7</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 33 (Réparateur téléphone) -->
-                    <div class="bg-white rounded-card overflow-hidden border border-gray-100 shadow-sm hover:shadow-hover transition-smooth flex flex-col cursor-pointer" onclick="window.location.href='profile-artisan.html?id=33'">
-                        <div class="h-40 bg-gray-200 relative">
-                            <img src="assets/phone_img.png" alt="Réparateur téléphone" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white p-1.5 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-1">
-                                <h3 class="text-base font-bold text-gray-900 line-clamp-1 hover:text-primary">Mobile Doc</h3>
-                                <div class="flex items-center text-xs">
-                                    <i class="fa-solid fa-star text-yellow-400"></i>
-                                    <span class="ml-1 font-bold">4.5</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Réparateur téléphone</p>
-                            <div class="text-xs text-gray-500 flex items-center mb-4">
-                                <i class="fa-solid fa-location-dot mr-1"></i> Gbégamey
-                            </div>
-                            <div class="mt-auto pt-3 border-t border-gray-100 flex justify-between items-center">
-                                <span class="font-bold text-secondary text-sm">Devis</span>
-                                <span class="px-2 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded">Dispo</span>
-                            </div>
-                        </div>
-                    </div>\n                </div>\n\n                <!-- Pagination -->
+                <!-- Pagination -->
                 <div class="flex justify-center mt-10">
                     <nav class="flex items-center space-x-1">
                         <button class="px-3 py-1 border border-gray-300 rounded text-gray-500 hover:bg-gray-50 disabled:opacity-50" disabled>
@@ -1176,31 +294,234 @@
         </div>
     </div>
 
+    <!-- Scripts -->
+    <script src="js/artisans-data.js"></script>
     <script>
+        // Search Logic
+        let currentFilters = {
+            query: '',
+            location: '',
+            categories: [],
+            maxPrice: 50000,
+            minRating: 4,
+            sort: 'relevance'
+        };
+
+        function initSearch() {
+            const urlParams = new URLSearchParams(window.location.search);
+            currentFilters.query = urlParams.get('query') || '';
+            currentFilters.location = urlParams.get('location') || '';
+            const cat = urlParams.get('category');
+            if (cat) {
+                currentFilters.categories = [cat];
+                // Check the corresponding checkbox
+                const checkbox = document.querySelector(`#category-filters input[value="${cat}"]`);
+                if (checkbox) checkbox.checked = true;
+            }
+
+            // Set input values
+            document.getElementById('nav-search-input').value = currentFilters.query;
+            document.getElementById('nav-location-input').value = currentFilters.location;
+
+            renderResults();
+            setupEventListeners();
+        }
+
+        function setupEventListeners() {
+            // Categories
+            document.getElementById('category-filters').addEventListener('change', (e) => {
+                const checked = Array.from(document.querySelectorAll('#category-filters input:checked')).map(i => i.value);
+                currentFilters.categories = checked;
+                renderResults();
+            });
+
+            // Price range
+            const priceRange = document.getElementById('price-range');
+            const priceValue = document.getElementById('price-value');
+            priceRange.addEventListener('input', (e) => {
+                const val = e.target.value;
+                priceValue.textContent = parseInt(val).toLocaleString();
+                currentFilters.maxPrice = parseInt(val);
+                renderResults();
+            });
+
+            // Rating
+            document.getElementById('rating-filters').addEventListener('change', (e) => {
+                currentFilters.minRating = parseFloat(e.target.value);
+                renderResults();
+            });
+
+            // Sort
+            document.getElementById('sort-select').addEventListener('change', (e) => {
+                currentFilters.sort = e.target.value;
+                renderResults();
+            });
+
+            // Reset
+            document.getElementById('reset-filters').addEventListener('click', () => {
+                currentFilters = {
+                    query: '',
+                    location: '',
+                    categories: [],
+                    maxPrice: 50000,
+                    minRating: 0,
+                    sort: 'relevance'
+                };
+                // Reset UI
+                document.querySelectorAll('#category-filters input').forEach(i => i.checked = false);
+                document.getElementById('price-range').value = 50000;
+                document.getElementById('price-value').textContent = '50 000';
+                document.querySelector('#rating-filters input[value="0"]').checked = true;
+                document.getElementById('sort-select').value = 'relevance';
+                document.getElementById('nav-search-input').value = '';
+                document.getElementById('nav-location-input').value = '';
+                
+                renderResults();
+            });
+        }
+
+        function performNavSearch() {
+            currentFilters.query = document.getElementById('nav-search-input').value;
+            currentFilters.location = document.getElementById('nav-location-input').value;
+            renderResults();
+        }
+
+        function renderResults() {
+            const grid = document.getElementById('artisans-grid');
+            const countLabel = document.getElementById('results-count');
+            const tagsContainer = document.getElementById('active-tags');
+
+            // 1. Filter
+            let filtered = artisans.filter(a => {
+                const matchQuery = !currentFilters.query || 
+                    a.name.toLowerCase().includes(currentFilters.query.toLowerCase()) || 
+                    a.job.toLowerCase().includes(currentFilters.query.toLowerCase()) ||
+                    a.category.toLowerCase().includes(currentFilters.query.toLowerCase());
+                
+                const matchLocation = !currentFilters.location || 
+                    a.location.toLowerCase().includes(currentFilters.location.toLowerCase());
+                
+                const matchCategory = currentFilters.categories.length === 0 || 
+                    currentFilters.categories.includes(a.category);
+                
+                const matchPrice = a.price === 0 || a.price <= currentFilters.maxPrice;
+                
+                const matchRating = a.rating >= currentFilters.minRating;
+
+                return matchQuery && matchLocation && matchCategory && matchPrice && matchRating;
+            });
+
+            // 2. Sort
+            if (currentFilters.sort === 'rating') {
+                filtered.sort((a, b) => b.rating - a.rating);
+            } else if (currentFilters.sort === 'price-asc') {
+                filtered.sort((a, b) => (a.price || Infinity) - (b.price || Infinity));
+            } else if (currentFilters.sort === 'price-desc') {
+                filtered.sort((a, b) => b.price - a.price);
+            }
+
+            // 3. Update UI
+            countLabel.textContent = `${filtered.length} artisan${filtered.length > 1 ? 's' : ''} trouvé${filtered.length > 1 ? 's' : ''} ${currentFilters.query ? `pour "${currentFilters.query}"` : ''}`;
+            
+            // Tags
+            tagsContainer.innerHTML = '';
+            if (currentFilters.categories.length > 0) {
+                currentFilters.categories.forEach(cat => addTag(cat, 'category'));
+            }
+            if (currentFilters.location) addTag(currentFilters.location, 'location');
+            if (currentFilters.minRating > 0) addTag(`${currentFilters.minRating}+ Étoiles`, 'rating');
+
+            // Grid
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-20 text-center">
+                        <i class="fa-solid fa-search text-gray-200 text-6xl mb-4"></i>
+                        <p class="text-gray-500">Aucun artisan ne correspond à vos critères.</p>
+                        <button onclick="document.getElementById('reset-filters').click()" class="mt-4 text-primary font-bold hover:underline">Réinitialiser les filtres</button>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(a => `
+                <div class="bg-white rounded-card overflow-hidden shadow-card hover:shadow-hover transition-smooth group cursor-pointer flex flex-col" onclick="window.location.href='profile-artisan.html?id=${a.id}'">
+                    <div class="h-48 bg-gray-200 relative overflow-hidden shrink-0">
+                        <img src="${a.avatar}" alt="${a.name}" class="w-full h-full object-cover group-hover:scale-105 transition-smooth duration-500">
+                        <div class="absolute top-4 right-4 bg-white p-2 rounded-full text-gray-400 hover:text-red-500 transition-smooth shadow-sm z-10" onclick="toggleHeart(event, this)">
+                            <i class="fa-regular fa-heart"></i>
+                        </div>
+                        <div class="absolute bottom-4 left-4 bg-white px-3 py-1 rounded-full text-xs font-bold text-primary shadow-sm">
+                            ${a.category}
+                        </div>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-primary transition-smooth line-clamp-1">${a.name}</h3>
+                            ${a.verified ? `
+                            <div class="flex items-center bg-green-100 px-2 py-0.5 rounded text-green-700 text-xs font-bold shrink-0 ml-2">
+                                <i class="fa-solid fa-check-circle mr-1"></i> Vérifié
+                            </div>` : ''}
+                        </div>
+                        <p class="text-sm text-gray-500 mb-2 line-clamp-1">${a.job}</p>
+                        <div class="flex items-center text-sm text-gray-500 mb-4">
+                            <i class="fa-solid fa-location-dot mr-2"></i> ${a.location}
+                        </div>
+                        <div class="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-star text-yellow-400 text-sm"></i>
+                                <span class="ml-1 font-bold text-gray-900 text-sm">${a.rating}</span>
+                                <span class="ml-1 text-gray-400 text-xs hidden sm:inline-block">(${a.reviews} avis)</span>
+                            </div>
+                            <span class="font-bold text-secondary text-base">${a.priceText}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addTag(text, type) {
+            const tag = document.createElement('span');
+            tag.className = 'inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-primary';
+            tag.innerHTML = `
+                ${text}
+                <button onclick="removeFilter('${text}', '${type}')" class="ml-1.5 text-primary hover:text-primary-dark focus:outline-none"><i class="fa-solid fa-times"></i></button>
+            `;
+            document.getElementById('active-tags').appendChild(tag);
+        }
+
+        function removeFilter(value, type) {
+            if (type === 'category') {
+                const checkbox = document.querySelector(`#category-filters input[value="${value}"]`);
+                if (checkbox) checkbox.checked = false;
+                currentFilters.categories = currentFilters.categories.filter(c => c !== value);
+            } else if (type === 'location') {
+                currentFilters.location = '';
+                document.getElementById('nav-location-input').value = '';
+            } else if (type === 'rating') {
+                currentFilters.minRating = 0;
+                document.querySelector('#rating-filters input[value="0"]').checked = true;
+            }
+            renderResults();
+        }
+
         function toggleHeart(event, element) {
             event.stopPropagation();
             const icon = element.querySelector('i');
-            
             if (icon.classList.contains('fa-regular')) {
                 icon.classList.replace('fa-regular', 'fa-solid');
                 element.classList.replace('text-gray-400', 'text-red-500');
-                icon.style.transform = 'scale(1.2)';
-                setTimeout(() => icon.style.transform = 'scale(1)', 200);
             } else {
                 icon.classList.replace('fa-solid', 'fa-regular');
                 element.classList.replace('text-red-500', 'text-gray-400');
             }
         }
 
+        // Initialize on load
+        window.addEventListener('load', initSearch);
+
         // Mobile Menu Toggle
-        document.addEventListener('DOMContentLoaded', () => {
-            const mobileBtn = document.getElementById('mobile-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            if(mobileBtn && mobileMenu) {
-                mobileBtn.addEventListener('click', () => {
-                    mobileMenu.classList.toggle('hidden');
-                });
-            }
+        document.getElementById('mobile-menu-btn').addEventListener('click', function () {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
         });
     </script>
 </body>
