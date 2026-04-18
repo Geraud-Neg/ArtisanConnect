@@ -20,7 +20,7 @@ app.use('/api/payments', require('./routes/payments'));
 app.use('/api/whatsapp', require('./routes/whatsapp'));
 
 // Fallback to index.html
-app.get('*', (req, res) => {
+app.get(/(.*)/, (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 

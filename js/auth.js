@@ -35,62 +35,55 @@ const AuthManager = {
         return user !== null && user.token !== undefined;
     },
 
-    // Connexion: scénario A1 & A2 implémentés
-    login(email, password) {
+    async login(email, password) {
         if (!email || !password) {
             return { success: false, message: 'Veuillez remplir tous les champs.' }; // A1
         }
-        const users = this.getUsers();
-        const user = users.find(u => u.email === this.normalizeEmail(email) && u.password === password);
         
-        if (!user) {
-            return { success: false, message: 'Email ou mot de passe incorrect.' }; // A2
+        try {
+            const response = await fetch('http://localhost:3000/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: this.normalizeEmail(email), password })
+            });
+            const data = await response.json();
+            
+            if (!data.success) {
+                return { success: false, message: data.message }; // A2
+            }
+            
+            // Set current user mimicking JWT structure
+            localStorage.setItem(this.storageKey, JSON.stringify(data.user));
+            return { success: true, user: data.user };
+        } catch (error) {
+            console.error("Login erreur:", error);
+            return { success: false, message: 'Erreur réseau. Le serveur API est-il lancé ?' };
         }
-        
-        // Simulation JWT
-        const currentUser = { 
-            id: user.id, 
-            name: user.name, 
-            email: user.email, 
-            role: user.role, 
-            token: 'jwt_' + btoa(user.email + ':' + Date.now()) 
-        };
-        localStorage.setItem(this.storageKey, JSON.stringify(currentUser));
-        return { success: true, user: currentUser };
     },
 
-    // Inscription
-    register(name, email, password, role = 'client') {
+    async register(name, email, password, role = 'client') {
         if (!name || !email || !password) {
             return { success: false, message: 'Veuillez remplir tous les champs du formulaire.' }; // A1
         }
         
-        const users = this.getUsers();
-        if (users.find(u => u.email === this.normalizeEmail(email))) {
-            return { success: false, message: 'Cet email est déjà utilisé par un autre compte.' };
+        try {
+            const response = await fetch('http://localhost:3000/api/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email: this.normalizeEmail(email), password, role })
+            });
+            const data = await response.json();
+            
+            if (!data.success) {
+                return { success: false, message: data.message };
+            }
+            
+            localStorage.setItem(this.storageKey, JSON.stringify(data.user));
+            return { success: true, user: data.user };
+        } catch (error) {
+            console.error("Register erreur:", error);
+            return { success: false, message: 'Erreur réseau. Le serveur API est-il lancé ?' };
         }
-        
-        const newUser = {
-            id: role + '_' + Math.floor(Math.random() * 100000),
-            name: name,
-            email: this.normalizeEmail(email),
-            password: password,
-            role: role
-        };
-        users.push(newUser);
-        localStorage.setItem(this.usersKey, JSON.stringify(users));
-        
-        // Auto-login après inscription (JWT simulé)
-        const currentUser = { 
-            id: newUser.id, 
-            name: newUser.name, 
-            email: newUser.email, 
-            role: newUser.role, 
-            token: 'jwt_' + btoa(newUser.email + ':' + Date.now()) 
-        };
-        localStorage.setItem(this.storageKey, JSON.stringify(currentUser));
-        
-        return { success: true, user: currentUser };
     },
 
     normalizeEmail(email) {
@@ -362,7 +355,7 @@ const AuthManager = {
         tabRegister.onclick = () => toggleTo('register');
 
         // Form Submit
-        const handleSubmit = (e, type) => {
+        const handleSubmit = async (e, type) => {
             e.preventDefault();
             this.hideError(); // Reset previous errors
 
@@ -371,7 +364,7 @@ const AuthManager = {
             if (type === 'login') {
                 const email = document.getElementById('login-email').value;
                 const password = document.getElementById('login-password').value;
-                authResult = this.login(email, password);
+                authResult = await this.login(email, password);
             } else {
                 const firstname = document.getElementById('reg-firstname').value.trim();
                 const lastname = document.getElementById('reg-lastname').value.trim();
@@ -383,7 +376,7 @@ const AuthManager = {
                 
                 const fullName = firstname + (lastname ? ' ' + lastname : '');
                 
-                authResult = this.register(fullName, email, password, role);
+                authResult = await this.register(fullName, email, password, role);
             }
 
             // Gérer les cas d'erreur alternatifs (A1, A2)
